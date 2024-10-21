@@ -1,4 +1,4 @@
-import HeroSection from "@/components/ui/HeroSection";
+import HeroSection from "@/components/HeroSection";
 import ImageWithText from "@/components/ImageWithText";
 import AboutUs from "@/components/AboutUs";
 import HomepageForm from "@/components/HomepageForm";
@@ -48,9 +48,9 @@ const servicesData = [
 
 export default function Home() {
   return (
-    <main className="container mx-auto p-4">
+    <main className="container mx-auto ">
       <HeroSection />
-      <div className="flex flex-col gap-30 w-full container mx-auto">
+      <div className="flex flex-col gap-30 w-full container mx-auto px-4">
         {servicesData.map((service, idx) => {
           return (
             <ImageWithText
