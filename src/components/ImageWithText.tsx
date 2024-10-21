@@ -1,13 +1,13 @@
 "use client";
 import Image from "next/image";
 import React from "react";
-import { buttonVariants } from "@/components/ui/button";
-import Link from "next/link";
+// import { buttonVariants } from "@/components/ui/button";
+// import Link from "next/link";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
-  DialogDescription,
+  // DialogDescription,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
@@ -39,7 +39,7 @@ const ImageWithText = ({
   title,
   description,
   cta,
-  link,
+  // link,
   swap,
   id,
 }: {

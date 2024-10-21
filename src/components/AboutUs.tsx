@@ -55,11 +55,11 @@ export default function AboutUs() {
                     and legal frameworks. After his studies, he joined a
                     pioneering green hydrogen company, leveraging his expertise
                     to secure numerous government grants through his exceptional
-                    grant writing skills. Ryan's work helped the company advance
-                    its sustainable energy initiatives. Later, he transitioned
-                    to the renewable energy sector, where he played a key role
-                    in driving projects focused on clean energy transitions and
-                    sustainable solutions.
+                    grant writing skills. Ryan&apos;s work helped the company
+                    advance its sustainable energy initiatives. Later, he
+                    transitioned to the renewable energy sector, where he played
+                    a key role in driving projects focused on clean energy
+                    transitions and sustainable solutions.
                   </p>
                 </div>
               </div>
