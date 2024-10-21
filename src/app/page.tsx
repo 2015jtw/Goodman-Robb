@@ -1,5 +1,7 @@
 import HeroSection from "@/components/ui/HeroSection";
 import ImageWithText from "@/components/ImageWithText";
+import AboutUs from "@/components/AboutUs";
+import HomepageForm from "@/components/HomepageForm";
 
 const servicesData = [
   {
@@ -64,6 +66,8 @@ export default function Home() {
           );
         })}
       </div>
+      <AboutUs />
+      <HomepageForm />
     </main>
   );
 }
