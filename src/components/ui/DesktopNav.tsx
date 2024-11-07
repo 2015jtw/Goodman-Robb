@@ -54,10 +54,12 @@ const components: { title: string; href: string; description: string }[] = [
 
 export default function DesktopNav() {
   return (
-    <NavigationMenu>
+    <NavigationMenu className="bg-background p-2 rounded-md shadow-md">
       <NavigationMenuList className="space-x-8">
         <NavigationMenuItem>
-          <NavigationMenuTrigger>Home</NavigationMenuTrigger>
+          <NavigationMenuTrigger className="text-base text-foreground">
+            Home
+          </NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
               <li className="row-span-3">
@@ -91,7 +93,9 @@ export default function DesktopNav() {
         </NavigationMenuItem>
 
         <NavigationMenuItem>
-          <NavigationMenuTrigger>Services</NavigationMenuTrigger>
+          <NavigationMenuTrigger className="text-base text-foreground">
+            Services
+          </NavigationMenuTrigger>
           <NavigationMenuContent className="left-1/2 transform -translate-x-1/2">
             <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] z-50 bg-white">
               {components.map((component) => (
@@ -110,7 +114,9 @@ export default function DesktopNav() {
 
         <NavigationMenuItem>
           <Link href="/docs" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+            <NavigationMenuLink
+              className={`${navigationMenuTriggerStyle()} !text-base text-foreground`}
+            >
               About Us
             </NavigationMenuLink>
           </Link>

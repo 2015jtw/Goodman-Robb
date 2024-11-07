@@ -30,6 +30,7 @@ export default function Navbar() {
 
   return (
     <header className="absolute inset-x-0 top-0 z-50">
+      {/* desktop menu */}
       <nav
         aria-label="Global"
         className="flex items-center justify-between p-6 lg:px-8"
@@ -64,6 +65,7 @@ export default function Navbar() {
         </div>
       </nav>
 
+      {/* Mobile Menu */}
       <Dialog
         open={mobileMenuOpen}
         onClose={setMobileMenuOpen}
