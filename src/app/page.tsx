@@ -24,6 +24,7 @@ export default function Home() {
               chartComponent={service.chartComponent}
               swap={idx % 2 === 0}
               id={service.routingLink}
+              defaultTopic={service.defaultTopic}
             />
           );
         })}

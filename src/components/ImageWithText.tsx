@@ -24,6 +24,7 @@ const ImageWithText = ({
   chartComponent,
   swap,
   className,
+  defaultTopic,
   id,
 }: {
   title: string;
@@ -33,6 +34,7 @@ const ImageWithText = ({
   imageLink?: string;
   className?: string;
   imageAlt?: string;
+  defaultTopic: string;
   chartComponent?: React.ReactNode;
   swap?: boolean;
   id?: string;
@@ -82,7 +84,7 @@ const ImageWithText = ({
                   Request {title} Service
                 </DialogTitle>
               </DialogHeader>
-              <ModalServiceForm defaultTopic={title} />
+              <ModalServiceForm defaultTopic={defaultTopic} />
             </DialogContent>
           </Dialog>
           <Link

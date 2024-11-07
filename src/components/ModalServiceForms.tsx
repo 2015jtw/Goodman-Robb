@@ -24,6 +24,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import { servicesData } from "@/data/dummy-data";
 
 const formSchema = z.object({
   fullname: z.string().min(1).max(50),
@@ -102,12 +103,14 @@ export const ModalServiceForm = ({
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="grant-writing">
-                          Grant Writing
-                        </SelectItem>
-                        <SelectItem value="esg-consulting">
-                          ESG Consulting
-                        </SelectItem>
+                        {servicesData.map((service) => (
+                          <SelectItem
+                            key={service.defaultTopic}
+                            value={service.defaultTopic}
+                          >
+                            {service.title}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                   </FormItem>
