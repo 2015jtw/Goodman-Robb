@@ -82,7 +82,7 @@ const ImageWithText = ({
                   Request {title} Service
                 </DialogTitle>
               </DialogHeader>
-              <ModalServiceForm />
+              <ModalServiceForm defaultTopic={title} />
             </DialogContent>
           </Dialog>
           <Link

@@ -32,7 +32,11 @@ const formSchema = z.object({
   message: z.string().min(10).max(500),
 });
 
-export const ModalServiceForm = () => {
+export const ModalServiceForm = ({
+  defaultTopic,
+}: {
+  defaultTopic: string;
+}) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
@@ -54,7 +58,7 @@ export const ModalServiceForm = () => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       fullname: "",
-      topic: "",
+      topic: defaultTopic,
       email: "",
       message: "",
     },
@@ -94,7 +98,7 @@ export const ModalServiceForm = () => {
                     <Select value={field.value} onValueChange={field.onChange}>
                       <FormControl>
                         <SelectTrigger>
-                          <SelectValue placeholder="Select a topic" />
+                          <SelectValue placeholder={defaultTopic} />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
