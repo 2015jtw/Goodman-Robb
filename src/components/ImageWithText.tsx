@@ -1,13 +1,12 @@
 "use client";
 import Image from "next/image";
 import React from "react";
-// import { buttonVariants } from "@/components/ui/button";
-// import Link from "next/link";
+import { buttonVariants } from "@/components/ui/button";
+import Link from "next/link";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
-  // DialogDescription,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
@@ -39,7 +38,6 @@ const ImageWithText = ({
   title,
   description,
   cta,
-  // link,
   swap,
   id,
 }: {
@@ -86,22 +84,16 @@ const ImageWithText = ({
         />
       </div>
 
-      <div className={`w-full my-4 md:mt-0 p-4 md:p-0`}>
-        <h4 className="md:px-10 text-4xl sm:text-2xl font-bold mb-2 text-left">
+      <div className={`w-full my-4 md:mt-0 ${swap ? "pr-8" : "pl-8"}`}>
+        <h4 className="text-2xl sm:text-2xl font-normal mb-2 text-left">
           {title}
         </h4>
-        <p className="md:px-10 text-sm md:text-md xl:text-lg font-light">
+        <p className="text-sm md:text-md xl:text-lg font-light">
           {description}
         </p>
-        {/* <Link
-          href={link}
-          className={`${buttonVariants({ variant: "secondary" })} mx-10 mt-4`}
-        >
-          {cta}
-        </Link> */}
         <Dialog>
           <DialogTrigger asChild>
-            <Button className="mx-10 mt-4">{cta}</Button>
+            <Button className="mr-4 mt-4">Get in Touch</Button>
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
@@ -215,6 +207,12 @@ const ImageWithText = ({
             </Form>
           </DialogContent>
         </Dialog>
+        <Link
+          href="/services"
+          className={`${buttonVariants({ variant: "secondary" })}`}
+        >
+          {cta}
+        </Link>
       </div>
     </div>
   );
