@@ -1,4 +1,5 @@
 import MultipleBarChart from "@/components/BarGraph";
+import { LineGraph } from "@/components/LineGraph";
 import React from "react";
 
 export const chartData = [
@@ -37,6 +38,7 @@ export const servicesData = [
     contactCTA: "Get in Touch",
     image: "/images/test-photo.jpg",
     imageAlt: "Business Continuity Image",
+    chartComponent: React.createElement(LineGraph),
   },
   {
     title: "Assessments",

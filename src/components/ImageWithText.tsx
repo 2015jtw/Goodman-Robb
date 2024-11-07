@@ -42,6 +42,7 @@ const ImageWithText = ({
   imageAlt,
   chartComponent,
   swap,
+  className,
   id,
 }: {
   title: string;
@@ -49,6 +50,7 @@ const ImageWithText = ({
   contactCTA: string;
   serviceLink: string;
   imageLink?: string;
+  className?: string;
   imageAlt?: string;
   chartComponent?: React.ReactNode;
   swap?: boolean;
@@ -75,7 +77,7 @@ const ImageWithText = ({
     <div
       className={`w-full flex flex-col md:flex-row items-center justify-between bg-white ${
         swap ? "md:flex-row-reverse" : ""
-      }`}
+      } ${className}`}
       id={id}
     >
       <div className="w-full md:w-1/2 p-4">
