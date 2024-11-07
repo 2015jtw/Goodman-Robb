@@ -1,5 +1,6 @@
 import MultipleBarChart from "@/components/BarGraph";
 import { LineGraph } from "@/components/LineGraph";
+import { WaterGraph } from "@/components/WaterGraph";
 import React from "react";
 
 export const chartData = [
@@ -21,7 +22,7 @@ export const servicesData = [
     contactCTA: "Get in Touch",
     image: "/images/test-photo.jpg",
     imageAlt: "Crisis Leadership Image",
-    chartComponent: React.createElement(LineGraph),
+    chartComponent: React.createElement(WaterGraph),
   },
   {
     title: "Crisis Communication",
@@ -42,11 +43,7 @@ export const servicesData = [
     contactCTA: "Get in Touch",
     image: "/images/test-photo.jpg",
     imageAlt: "Assessments Image",
-    chartComponent: React.createElement(MultipleBarChart, {
-      data: chartData,
-      title: "Crisis Leadership Chart",
-      description: "Monthly data for Crisis Leadership",
-    }),
+    chartComponent: React.createElement(LineGraph),
   },
   {
     title: "Business Continuity",
@@ -68,5 +65,10 @@ export const servicesData = [
     contactCTA: "Get in Touch",
     image: "/images/test-photo.jpg",
     imageAlt: "Risk Management Image",
+    chartComponent: React.createElement(MultipleBarChart, {
+      data: chartData,
+      title: "Crisis Leadership Chart",
+      description: "Monthly data for Crisis Leadership",
+    }),
   },
 ];
