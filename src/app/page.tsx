@@ -2,9 +2,7 @@ import HeroSection from "@/components/HeroSection";
 import ImageWithText from "@/components/ImageWithText";
 import AboutUs from "@/components/AboutUs";
 import HomepageForm from "@/components/HomepageForm";
-import { chartData, servicesData } from "@/data/dummy-data";
-import MultipleBarChart from "@/components/BarGraph";
-import { LineGraph } from "@/components/LineGraph";
+import { servicesData } from "@/data/dummy-data";
 
 export default function Home() {
   return (
@@ -29,15 +27,6 @@ export default function Home() {
             />
           );
         })}
-      </div>
-      <div>
-        <MultipleBarChart
-          data={chartData}
-          title="Monthly Active Users"
-          description="The number of active users on our platform"
-          trendPercentage={10}
-        />
-        <LineGraph />
       </div>
       <AboutUs />
       <HomepageForm />

@@ -1,4 +1,14 @@
 "use client";
+import emailjs from "emailjs-com";
+import { Button } from "./ui/button";
+import { SiMinutemailer } from "react-icons/si";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 import {
   Form,
@@ -8,23 +18,12 @@ import {
   FormMessage,
   FormControl,
 } from "@/components/ui/form";
-import { SiMinutemailer } from "react-icons/si";
-
 import { Textarea } from "./ui/textarea";
 import { Input } from "./ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
-import { Button } from "./ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { useState } from "react";
-import emailjs from "emailjs-com";
 
 const formSchema = z.object({
   fullname: z.string().min(1).max(50),
@@ -33,19 +32,10 @@ const formSchema = z.object({
   message: z.string().min(10).max(500),
 });
 
-export default function HomepageForm() {
+export const ModalServiceForm = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      fullname: "",
-      topic: "",
-      email: "",
-      message: "",
-    },
-  });
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       const result = await emailjs.send(
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
@@ -58,21 +48,26 @@ export default function HomepageForm() {
     } catch (error) {
       console.error(error);
     }
-  }
+  };
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      fullname: "",
+      topic: "",
+      email: "",
+      message: "",
+    },
+  });
 
   return (
     <Form {...form}>
       <div className="bg-background container mx-auto px-4" id="contact-form">
-        {isSubmitted ? (
-          <div className=" text-center p-4">
-            <h2>Thank you for your submission!</h2>
-          </div>
-        ) : (
+        {!isSubmitted ? (
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="max-w-2xl mx-auto w-full flex flex-col gap-4 my-12"
+            className="max-w-2xl mx-auto w-full flex flex-col gap-4"
           >
-            <h2 className="text-4xl text-center">Contact Us</h2>
             <div className="flex flex-col md:flex-row gap-4">
               <FormField
                 name="fullname"
@@ -89,9 +84,10 @@ export default function HomepageForm() {
                   );
                 }}
               />
+
               <FormField
-                control={form.control}
                 name="topic"
+                control={form.control}
                 render={({ field }) => (
                   <FormItem className="flex-1">
                     <FormLabel>Topic</FormLabel>
@@ -115,25 +111,23 @@ export default function HomepageForm() {
               />
             </div>
 
-            <div className="flex flex-col md:flex-row gap-4">
-              <FormField
-                name="email"
-                control={form.control}
-                render={({ field }) => (
-                  <FormItem className="flex-1">
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        placeholder="john.doe@gmail.com"
-                        type="email"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
+            <FormField
+              name="email"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      placeholder="john.doe@gmail.com"
+                      type="email"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
             <FormField
               name="message"
@@ -152,15 +146,32 @@ export default function HomepageForm() {
                 </FormItem>
               )}
             />
-            <Button type="submit" className="w-full">
+            <Button type="submit" className="w-full group">
               Submit
               <span className="transform transition-transform duration-300 group-hover:translate-x-1">
                 <SiMinutemailer />
               </span>
             </Button>
           </form>
+        ) : (
+          <div className="flex flex-col items-center justify-center gap-4 ">
+            <h3 className="text-2xl pb-4">Your message has been received!</h3>
+
+            <Button
+              className="group"
+              onClick={() => {
+                setIsSubmitted(false);
+                form.reset();
+              }}
+            >
+              Submit Another Message
+              <span className="transform transition-transform duration-300 group-hover:translate-x-1">
+                <SiMinutemailer />
+              </span>
+            </Button>
+          </div>
         )}
       </div>
     </Form>
   );
-}
+};
