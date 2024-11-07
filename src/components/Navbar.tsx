@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { SiMinutemailer } from "react-icons/si";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import {
   Bars3Icon,
@@ -59,8 +60,13 @@ export default function Navbar() {
           <DesktopNav />
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <Link href="#">
-            <Button>Contact Us</Button>
+          <Link href="#contact-form" className="group">
+            <Button>
+              Contact Us
+              <span className="transform transition-transform duration-300 group-hover:translate-x-1">
+                <SiMinutemailer />
+              </span>
+            </Button>
           </Link>
         </div>
       </nav>

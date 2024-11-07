@@ -1,5 +1,6 @@
 import { buttonVariants } from "./ui/button";
 import Link from "next/link";
+import { SiMinutemailer } from "react-icons/si";
 
 export default function HeroSection() {
   return (
@@ -42,9 +43,12 @@ export default function HeroSection() {
                 className={`${buttonVariants({
                   variant: "default",
                   size: "lg",
-                })} text-lg !px-4`}
+                })} text-lg !px-4 group`}
               >
-                Get in touch
+                Get in Touch
+                <span className="transform transition-transform duration-300 group-hover:translate-x-1">
+                  <SiMinutemailer />
+                </span>
               </Link>
             </div>
           </div>

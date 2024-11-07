@@ -152,7 +152,7 @@ export default function HomepageForm() {
                 </FormItem>
               )}
             />
-            <Button type="submit" className="w-full">
+            <Button type="submit" className="w-full group">
               Submit
               <span className="transform transition-transform duration-300 group-hover:translate-x-1">
                 <SiMinutemailer />
