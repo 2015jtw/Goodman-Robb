@@ -57,7 +57,7 @@ export default function DesktopNav() {
     <NavigationMenu className="bg-background p-2 rounded-md shadow-md">
       <NavigationMenuList className="space-x-8">
         <NavigationMenuItem>
-          <NavigationMenuTrigger className="text-base text-foreground">
+          <NavigationMenuTrigger className="text-base text-foreground font-medium">
             Home
           </NavigationMenuTrigger>
           <NavigationMenuContent>
@@ -93,7 +93,7 @@ export default function DesktopNav() {
         </NavigationMenuItem>
 
         <NavigationMenuItem>
-          <NavigationMenuTrigger className="text-base text-foreground">
+          <NavigationMenuTrigger className="text-base text-foreground font-medium">
             Services
           </NavigationMenuTrigger>
           <NavigationMenuContent className="left-1/2 transform -translate-x-1/2">
@@ -115,7 +115,7 @@ export default function DesktopNav() {
         <NavigationMenuItem>
           <Link href="/docs" legacyBehavior passHref>
             <NavigationMenuLink
-              className={`${navigationMenuTriggerStyle()} !text-base text-foreground`}
+              className={`${navigationMenuTriggerStyle()} !text-base text-foreground font-medium`}
             >
               About Us
             </NavigationMenuLink>
