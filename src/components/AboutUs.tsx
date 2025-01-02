@@ -39,17 +39,23 @@ export default async function AboutUs() {
                 {person.aboutImage && (
                   <Avatar className="rounded-full w-16 h-16">
                     <AvatarImage src={urlFor(person.aboutImage).url()} />
-                    <AvatarFallback>CN</AvatarFallback>
+                    <AvatarFallback>
+                      {person.name &&
+                        person.name
+                          .split(" ")
+                          .map((n) => n[0])
+                          .join("")}
+                    </AvatarFallback>
                   </Avatar>
                 )}
-                <div>
-                  <h3 className="text-base font-semibold leading-7 tracking-tight text-gray-900 text-center">
+                <div className="py-2 text-black">
+                  <h3 className="text-lg font-semibold leading-7 tracking-tight text-center">
                     {person.name}
                   </h3>
-                  <p className="text-sm font-semibold leading-6 text-indigo-600 text-center">
+                  <p className="text-base italic font-semibold leading-6 text-primary text-center pb-2">
                     {person.jobTitle}
                   </p>
-                  <div className="text-base leading-7 text-black">
+                  <div className="text-base leading-7 ">
                     {person.bio && <PortableText value={person.bio} />}
                   </div>
                 </div>
