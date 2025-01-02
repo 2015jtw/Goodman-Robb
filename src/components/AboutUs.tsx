@@ -1,20 +1,19 @@
-const people = [
-  {
-    name: "Ryan Robb",
-    role: "Co-Founder / CEO",
-    imageUrl:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-  {
-    name: "William Goodman",
-    role: "Co-Founder / CEO",
-    imageUrl:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-  // More people...
-];
+// UI
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
-export default function AboutUs() {
+// Sanity
+import { client } from "@/sanity/lib/client";
+import { aboutQuery } from "@/sanity/lib/queries";
+import { AboutQueryResult } from "../../sanity.types";
+import { PortableText } from "next-sanity";
+import { urlFor } from "@/sanity/lib/image";
+
+const options = { next: { revalidate: 30 } };
+
+export default async function AboutUs() {
+  const about: AboutQueryResult = await client.fetch(aboutQuery, {}, options);
+  console.log("about: ", about);
+
   return (
     <div className="bg-white py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -34,33 +33,25 @@ export default function AboutUs() {
           role="list"
           className="mt-12 grid gap-x-8 gap-y-12 sm:grid-cols-2 sm:gap-y-16 lg:grid-cols-2"
         >
-          {people.map((person) => (
-            <li key={person.name}>
+          {about.map((person) => (
+            <li key={person._id}>
               <div className="flex flex-col items-center justify-center gap-x-6">
-                <img
-                  alt=""
-                  src={person.imageUrl}
-                  className="h-16 w-16 rounded-full"
-                />
+                {person.aboutImage && (
+                  <Avatar className="rounded-full w-16 h-16">
+                    <AvatarImage src={urlFor(person.aboutImage).url()} />
+                    <AvatarFallback>CN</AvatarFallback>
+                  </Avatar>
+                )}
                 <div>
                   <h3 className="text-base font-semibold leading-7 tracking-tight text-gray-900 text-center">
                     {person.name}
                   </h3>
                   <p className="text-sm font-semibold leading-6 text-indigo-600 text-center">
-                    {person.role}
+                    {person.jobTitle}
                   </p>
-                  <p className="text-base leading-7 text-gray-600 mt-4">
-                    Ryan studied Environment and Law at McGill University, where
-                    he developed a deep understanding of environmental policies
-                    and legal frameworks. After his studies, he joined a
-                    pioneering green hydrogen company, leveraging his expertise
-                    to secure numerous government grants through his exceptional
-                    grant writing skills. Ryan&apos;s work helped the company
-                    advance its sustainable energy initiatives. Later, he
-                    transitioned to the renewable energy sector, where he played
-                    a key role in driving projects focused on clean energy
-                    transitions and sustainable solutions.
-                  </p>
+                  <div className="text-base leading-7 text-black">
+                    {person.bio && <PortableText value={person.bio} />}
+                  </div>
                 </div>
               </div>
             </li>
