@@ -20,7 +20,7 @@ export default async function AboutUs() {
         {/* Text Section */}
         <div className="max-w-2xl mx-auto text-center xl:max-w-none">
           <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Meet our leadership
+            Who Are We
           </h2>
           <p className="mt-6 text-lg leading-8 text-gray-600">
             Libero fames augue nisl porttitor nisi, quis. Id ac elit odio vitae

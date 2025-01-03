@@ -998,17 +998,36 @@
         },
         "optional": true
       },
-      "btnText": {
+      "icon": {
         "type": "objectAttribute",
         "value": {
-          "type": "string"
-        },
-        "optional": true
-      },
-      "btnLink": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
+          "type": "union",
+          "of": [
+            {
+              "type": "string",
+              "value": "fire-extinguisher"
+            },
+            {
+              "type": "string",
+              "value": "user"
+            },
+            {
+              "type": "string",
+              "value": "speech"
+            },
+            {
+              "type": "string",
+              "value": "flame"
+            },
+            {
+              "type": "string",
+              "value": "handshake"
+            },
+            {
+              "type": "string",
+              "value": "chart-line"
+            }
+          ]
         },
         "optional": true
       },

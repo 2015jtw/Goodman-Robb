@@ -1,12 +1,27 @@
+// UI
 import HeroSection from "@/components/HeroSection";
 import ImageWithText from "@/components/ImageWithText";
 import AboutUs from "@/components/AboutUs";
 import HomepageForm from "@/components/HomepageForm";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+
+// Sanity Data
+import { client } from "@/sanity/lib/client";
+import { serviceQuery } from "@/sanity/lib/queries";
+import { ServiceQueryResult } from "../../sanity.types";
 import { servicesData } from "@/data/dummy-data";
 
-export default function Home() {
+const options = { next: { revalidate: 30 } };
+
+export default async function Home() {
+  const services: ServiceQueryResult = await client.fetch(
+    serviceQuery,
+    {},
+    options
+  );
+
+  console.log("services: ", services);
   return (
     <>
       <Navbar />

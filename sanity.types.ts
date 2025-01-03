@@ -159,8 +159,7 @@ export type Service = {
     _type: "image";
     _key: string;
   }>;
-  btnText?: string;
-  btnLink?: string;
+  icon?: "fire-extinguisher" | "user" | "speech" | "flame" | "handshake" | "chart-line";
   serviceImage?: {
     asset?: {
       _ref: string;
@@ -437,11 +436,63 @@ export type AboutQueryResult = Array<{
     _type: "image";
   } | null;
 }>;
+// Variable: serviceQuery
+// Query: *[_type == "service"]{ _id, title, slug, intro, body, icon, serviceImage }
+export type ServiceQueryResult = Array<{
+  _id: string;
+  title: string | null;
+  slug: Slug | null;
+  intro: string | null;
+  body: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
+    listItem?: "bullet";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  }> | null;
+  icon: "chart-line" | "fire-extinguisher" | "flame" | "handshake" | "speech" | "user" | null;
+  serviceImage: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  } | null;
+}>;
 
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     "*[_type == \"about\"]{ _id, name, jobTitle, bio, aboutImage }": AboutQueryResult;
+    "  *[_type == \"service\"]{ _id, title, slug, intro, body, icon, serviceImage }\n": ServiceQueryResult;
   }
 }
