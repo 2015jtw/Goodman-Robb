@@ -487,6 +487,13 @@ export type ServiceQueryResult = Array<{
     _type: "image";
   } | null;
 }>;
+// Variable: topicsQuery
+// Query: *[_type == "service"]{ _id, title, slug }
+export type TopicsQueryResult = Array<{
+  _id: string;
+  title: string | null;
+  slug: Slug | null;
+}>;
 
 // Query TypeMap
 import "@sanity/client";
@@ -494,5 +501,6 @@ declare module "@sanity/client" {
   interface SanityQueries {
     "*[_type == \"about\"]{ _id, name, jobTitle, bio, aboutImage }": AboutQueryResult;
     "  *[_type == \"service\"]{ _id, title, slug, intro, body, icon, serviceImage }\n": ServiceQueryResult;
+    "  *[_type == \"service\"]{ _id, title, slug }\n": TopicsQueryResult;
   }
 }

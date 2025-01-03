@@ -12,7 +12,7 @@ export const chartData = [
   { month: "June", desktop: 214, mobile: 140 },
 ];
 
-export const servicesData = [
+export const servicesHardcodedData = [
   {
     title: "Crisis Leadership",
     defaultTopic: "crisis-leadership",

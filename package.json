@@ -30,6 +30,7 @@
     "mini-css-extract-plugin": "^2.9.1",
     "next": "14.2.15",
     "next-sanity": "9",
+    "nodemailer": "^6.9.16",
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.53.1",
@@ -43,6 +44,7 @@
   },
   "devDependencies": {
     "@types/node": "^20",
+    "@types/nodemailer": "^6.4.17",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",

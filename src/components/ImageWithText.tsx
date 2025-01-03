@@ -12,7 +12,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { ModalServiceForm } from "./ModalServiceForms";
+import { ModalForm } from "./ModalForm";
 
 const ImageWithText = ({
   title,
@@ -84,7 +84,7 @@ const ImageWithText = ({
                   Request {title} Service
                 </DialogTitle>
               </DialogHeader>
-              <ModalServiceForm defaultTopic={defaultTopic} />
+              <ModalForm defaultTopic={defaultTopic} />
             </DialogContent>
           </Dialog>
           <Link
