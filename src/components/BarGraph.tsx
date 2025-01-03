@@ -1,7 +1,7 @@
 "use client";
 
-import { TrendingUp } from "lucide-react";
-import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
+import { TrendingDown } from "lucide-react";
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
 
 import {
   Card,
@@ -21,15 +21,16 @@ import {
 
 interface ChartData {
   month: string;
-  desktop: number;
-  mobile: number;
+  ghgEmissionsWithoutDataConsulting: number;
+  ghgEmissionsWithDataConsulting: number;
 }
 
 interface MultipleBarChartProps {
   data: ChartData[];
   title: string;
   description: string;
-  trendPercentage?: number;
+  trendPercentage?: string;
+  chartTimeline?: string;
 }
 
 export default function MultipleBarChart({
@@ -37,14 +38,15 @@ export default function MultipleBarChart({
   title,
   description,
   trendPercentage,
+  chartTimeline,
 }: MultipleBarChartProps) {
   const chartConfig = {
-    desktop: {
-      label: "Desktop",
+    ghgEmissionsWithoutDataConsulting: {
+      label: "GHG Emissions Without Data Consulting",
       color: "hsl(var(--chart-1))",
     },
-    mobile: {
-      label: "Mobile",
+    ghgEmissionsWithDataConsulting: {
+      label: "GHG Emissions With Data Consulting",
       color: "hsl(var(--chart-2))",
     },
   };
@@ -66,29 +68,44 @@ export default function MultipleBarChart({
               axisLine={false}
               tickFormatter={(value) => value.slice(0, 3)}
             />
+            <YAxis
+              tickLine={false}
+              axisLine={false}
+              tickMargin={10}
+              label={{
+                value: "GHG Emissions (Metric Tons)",
+                angle: -90,
+                position: "insideLeft",
+                offset: 0,
+                style: { textAnchor: "middle" },
+              }}
+            />
             <ChartTooltip
               cursor={false}
               content={<ChartTooltipContent indicator="dashed" />}
             />
             <ChartLegend content={<ChartLegendContent />} />
 
-            <Bar dataKey="desktop" fill="var(--color-desktop)" radius={4} />
-            <Bar dataKey="mobile" fill="var(--color-mobile)" radius={4} />
+            <Bar
+              dataKey="ghgEmissionsWithoutDataConsulting"
+              fill="var(--color-ghgEmissionsWithoutDataConsulting)"
+              radius={4}
+            />
+            <Bar
+              dataKey="ghgEmissionsWithDataConsulting"
+              fill="var(--color-ghgEmissionsWithDataConsulting)"
+              radius={4}
+            />
           </BarChart>
         </ChartContainer>
       </CardContent>
       {trendPercentage && (
         <CardFooter className="flex-col items-start gap-2 text-sm">
-          <div className="flex gap-2 font-medium leading-none">
-            Trending {trendPercentage > 0 ? "up" : "down"} by{" "}
-            {Math.abs(trendPercentage)}% this month{" "}
-            <TrendingUp
-              className={`h-4 w-4 ${trendPercentage < 0 ? "rotate-180" : ""}`}
-            />
+          <div className="flex justify-center font-medium leading-none text-center">
+            {trendPercentage}
+            <TrendingDown className="h-4 w-4" />
           </div>
-          <div className="leading-none text-muted-foreground">
-            Showing total visitors for the last {data.length} months
-          </div>
+          <div className="text-muted-foreground">{chartTimeline}</div>
         </CardFooter>
       )}
     </Card>

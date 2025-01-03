@@ -51,6 +51,44 @@ export const serviceType = {
       description: "Choose an icon to represent this service",
     }),
     defineField({
+      name: "chartTitle",
+      type: "string",
+    }),
+    defineField({
+      name: "chartDescription",
+      type: "string",
+    }),
+    defineField({
+      name: "chartTrendPercentage",
+      type: "string",
+    }),
+    defineField({
+      name: "chartTimeline",
+      type: "string",
+    }),
+    defineField({
+      name: "chartData",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          fields: [
+            { name: "month", type: "string", title: "Month" },
+            {
+              name: "ghgEmissionsWithoutDataConsulting",
+              type: "number",
+              title: "GHG Emissions Without Data Consulting",
+            },
+            {
+              name: "ghgEmissionsWithDataConsulting",
+              type: "number",
+              title: "GHG Emissions With Data Consulting",
+            },
+          ],
+        },
+      ],
+    }),
+    defineField({
       name: "serviceImage",
       type: "image",
       options: {

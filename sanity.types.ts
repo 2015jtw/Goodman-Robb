@@ -160,6 +160,16 @@ export type Service = {
     _key: string;
   }>;
   icon?: "fire-extinguisher" | "user" | "speech" | "flame" | "handshake" | "chart-line";
+  chartTitle?: string;
+  chartDescription?: string;
+  chartTrendPercentage?: string;
+  chartTimeline?: string;
+  chartData?: Array<{
+    month?: string;
+    ghgEmissionsWithoutDataConsulting?: number;
+    ghgEmissionsWithDataConsulting?: number;
+    _key: string;
+  }>;
   serviceImage?: {
     asset?: {
       _ref: string;
@@ -437,7 +447,7 @@ export type AboutQueryResult = Array<{
   } | null;
 }>;
 // Variable: serviceQuery
-// Query: *[_type == "service"]{ _id, title, slug, intro, body, icon, serviceImage }
+// Query: *[_type == "service"]{ _id, title, slug, intro, body, icon, serviceImage, chartTitle, chartDescription, chartTrendPercentage, chartTimeline, chartData }
 export type ServiceQueryResult = Array<{
   _id: string;
   title: string | null;
@@ -486,6 +496,16 @@ export type ServiceQueryResult = Array<{
     alt?: string;
     _type: "image";
   } | null;
+  chartTitle: string | null;
+  chartDescription: string | null;
+  chartTrendPercentage: string | null;
+  chartTimeline: string | null;
+  chartData: Array<{
+    month?: string;
+    ghgEmissionsWithoutDataConsulting?: number;
+    ghgEmissionsWithDataConsulting?: number;
+    _key: string;
+  }> | null;
 }>;
 // Variable: topicsQuery
 // Query: *[_type == "service"]{ _id, title, slug }
@@ -500,7 +520,7 @@ import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     "*[_type == \"about\"]{ _id, name, jobTitle, bio, aboutImage }": AboutQueryResult;
-    "  *[_type == \"service\"]{ _id, title, slug, intro, body, icon, serviceImage }\n": ServiceQueryResult;
+    "  *[_type == \"service\"]{ _id, title, slug, intro, body, icon, serviceImage, chartTitle, chartDescription, chartTrendPercentage, chartTimeline, chartData }\n": ServiceQueryResult;
     "  *[_type == \"service\"]{ _id, title, slug }\n": TopicsQueryResult;
   }
 }

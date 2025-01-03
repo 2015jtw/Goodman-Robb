@@ -12,10 +12,9 @@ const options = { next: { revalidate: 30 } };
 
 export default async function AboutUs() {
   const about: AboutQueryResult = await client.fetch(aboutQuery, {}, options);
-  console.log("about: ", about);
 
   return (
-    <div className="bg-white py-24 sm:py-32">
+    <div className="bg-white py-24 sm:py-32" id="about-us">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* Text Section */}
         <div className="max-w-2xl mx-auto text-center xl:max-w-none">

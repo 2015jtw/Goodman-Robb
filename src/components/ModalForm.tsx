@@ -102,7 +102,7 @@ export const ModalForm = ({ defaultTopic }: { defaultTopic: string }) => {
       <div className="bg-background container mx-auto px-4" id="contact-form">
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="max-w-2xl mx-auto w-full flex flex-col gap-4"
+          className="max-w-3xl mx-auto w-full flex flex-col gap-4"
         >
           <div className="flex flex-col md:flex-row gap-4">
             <FormField
@@ -127,10 +127,16 @@ export const ModalForm = ({ defaultTopic }: { defaultTopic: string }) => {
               render={({ field }) => (
                 <FormItem className="flex-1">
                   <FormLabel>Topic</FormLabel>
-                  <Select value={field.value} onValueChange={field.onChange}>
+                  <Select
+                    value={field.value || defaultTopic} // Use defaultTopic if field.value is empty
+                    onValueChange={field.onChange}
+                  >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder={defaultTopic} />
+                        <SelectValue
+                          placeholder={field.value || defaultTopic}
+                        />{" "}
+                        {/* Fallback to defaultTopic */}
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>

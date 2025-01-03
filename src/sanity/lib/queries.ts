@@ -7,7 +7,7 @@ export const aboutQuery = defineQuery(
 
 // Service section data
 export const serviceQuery =
-  defineQuery(`  *[_type == "service"]{ _id, title, slug, intro, body, icon, serviceImage }
+  defineQuery(`*[_type == "service"]{ _id, title, slug, intro, body, icon, serviceImage, chartTitle, chartDescription, chartTrendPercentage, chartTimeline, chartData }
 `);
 
 // Contact Form Topics data
