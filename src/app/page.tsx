@@ -11,6 +11,7 @@ import { client } from "@/sanity/lib/client";
 import { serviceQuery } from "@/sanity/lib/queries";
 import { ServiceQueryResult } from "../../sanity.types";
 import { servicesData } from "@/data/dummy-data";
+import Pricing from "@/components/Pricing";
 
 const options = { next: { revalidate: 30 } };
 
@@ -24,7 +25,7 @@ export default async function Home() {
   console.log("services: ", services);
   return (
     <>
-      <Navbar />
+      <Navbar services={services} />
       <main className="container mx-auto ">
         <HeroSection />
         <div className="flex flex-col gap-30 w-full container mx-auto px-4">
@@ -49,6 +50,7 @@ export default async function Home() {
           })}
         </div>
         <AboutUs />
+        <Pricing />
         <HomepageForm />
       </main>
 

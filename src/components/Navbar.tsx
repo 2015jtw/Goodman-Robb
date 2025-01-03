@@ -3,6 +3,7 @@
 // React/Next
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 // UI
 import { SiMinutemailer } from "react-icons/si";
@@ -12,23 +13,30 @@ import {
   XMarkIcon,
   ChevronDownIcon,
 } from "@heroicons/react/24/outline";
-import DesktopNav from "./ui/DesktopNav";
+// import DesktopNav from "./ui/DesktopNav";
 import { Button } from "./ui/button";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+  ListItem,
+} from "@/components/ui/navigation-menu";
+import { ServiceQueryResult } from "../../sanity.types";
 
 const navigation = [
-  {
-    name: "Services",
-    href: "#",
-    services: [
-      { name: "Grant Writing", href: "#" },
-      { name: "ESG Consulting", href: "#" },
-      { name: "GHG Reduction", href: "#" },
-    ],
-  },
-  { name: "About Us", href: "#" },
+  { name: "Home", href: "/" },
+  { name: "About Us", href: "#about-us" },
+  { name: "Pricing", href: "#pricing" },
+  { name: "Contact Us", href: "#contact-form" },
 ];
+const home = navigation.find((item) => item.name === "Home");
+const contact = navigation.find((item) => item.name === "Contact Us");
 
-export default function Navbar() {
+export default function Navbar({ services }: { services: ServiceQueryResult }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false); // To handle dropdown toggle
 
@@ -40,14 +48,16 @@ export default function Navbar() {
         className="flex items-center justify-between p-6 lg:px-8"
       >
         <div className="flex lg:flex-1">
-          <a href="#" className="-m-1.5 p-1.5">
+          <Link href="#" className="-m-1.5 p-1.5">
             <span className="sr-only">Your Company</span>
-            <img
-              alt=""
+            <Image
+              alt="Image of your company Logo"
               src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
               className="h-8 w-auto"
+              width={32}
+              height={32}
             />
-          </a>
+          </Link>
         </div>
         <div className="flex lg:hidden">
           <button
@@ -60,7 +70,57 @@ export default function Navbar() {
           </button>
         </div>
         <div className="hidden lg:flex lg:gap-x-12">
-          <DesktopNav />
+          <NavigationMenu className="bg-background p-2 rounded-md shadow-md">
+            <NavigationMenuList className="space-x-8">
+              <NavigationMenuItem>
+                <Link href="/" legacyBehavior passHref>
+                  <NavigationMenuLink
+                    className={`${navigationMenuTriggerStyle()} !text-base text-foreground font-medium`}
+                  >
+                    Home
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger className="text-base text-foreground font-medium">
+                  Services
+                </NavigationMenuTrigger>
+                <NavigationMenuContent className="left-1/2 transform -translate-x-1/2">
+                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] z-50 bg-white">
+                    {services.map((service) => (
+                      <ListItem
+                        key={service._id}
+                        title={service.title ?? ""}
+                        href={service.slug?.current}
+                        className="hover:bg-blue-100"
+                      >
+                        {service.intro}
+                      </ListItem>
+                    ))}
+                  </ul>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+
+              <NavigationMenuItem>
+                <Link href="#about-us" legacyBehavior passHref>
+                  <NavigationMenuLink
+                    className={`${navigationMenuTriggerStyle()} !text-base text-foreground font-medium`}
+                  >
+                    About Us
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <Link href="#pricing" legacyBehavior passHref>
+                  <NavigationMenuLink
+                    className={`${navigationMenuTriggerStyle()} !text-base text-foreground font-medium`}
+                  >
+                    Pricing
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <Link href="#contact-form" className="group">
@@ -83,14 +143,16 @@ export default function Navbar() {
         <div className="fixed inset-0 z-50" />
         <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
-            <a href="#" className="-m-1.5 p-1.5">
+            <Link href="/" className="-m-1.5 p-1.5">
               <span className="sr-only">Your Company</span>
-              <img
-                alt=""
+              <Image
+                alt="Image of your company Logo"
                 src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
                 className="h-8 w-auto"
+                width={32}
+                height={32}
               />
-            </a>
+            </Link>
             <button
               type="button"
               onClick={() => setMobileMenuOpen(false)}
@@ -103,49 +165,63 @@ export default function Navbar() {
           <div className="mt-6 flow-root">
             <div className="-my-6 divide-y divide-gray-500/10">
               <div className="space-y-2 py-6">
-                {navigation.map((item) => (
-                  <div key={item.name}>
-                    <button
-                      onClick={() =>
-                        item.services && setServicesOpen(!servicesOpen)
-                      }
-                      className="flex w-full justify-between items-center px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                    >
-                      {item.name}
-                      {item.services && (
-                        <ChevronDownIcon
-                          className={`h-5 w-5 transition-transform ${
-                            servicesOpen ? "rotate-180" : ""
-                          }`}
-                        />
-                      )}
-                    </button>
-
-                    {/* Services Dropdown */}
-                    {servicesOpen && item.services && (
-                      <div className="ml-4 space-y-1">
-                        {item.services.map((service) => (
-                          <a
-                            key={service.name}
-                            href={service.href}
-                            className="block px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50"
-                          >
-                            {service.name}
-                          </a>
-                        ))}
-                      </div>
+                {home && (
+                  <Link
+                    key={home.name}
+                    href={home.href}
+                    className="block px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50"
+                  >
+                    {home.name}
+                  </Link>
+                )}{" "}
+                <button
+                  onClick={() => setServicesOpen(!servicesOpen)}
+                  className="flex w-full justify-between items-center px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                >
+                  Services
+                  <ChevronDownIcon
+                    className={`h-5 w-5 transition-transform ${
+                      servicesOpen ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
+                {/* Services Dropdown */}
+                {servicesOpen && (
+                  <div className="ml-4 space-y-1">
+                    {services.map((service) =>
+                      service.slug?.current ? (
+                        <Link
+                          key={service._id}
+                          href={service.slug.current}
+                          className="block px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50"
+                        >
+                          {service.title}
+                        </Link>
+                      ) : null
                     )}
                   </div>
+                )}
+                {navigation.slice(1, -1).map((item, idx) => (
+                  <Link
+                    key={idx}
+                    href={item.href}
+                    className="block px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50"
+                  >
+                    {item.name}
+                  </Link>
                 ))}
               </div>
 
               <div className="py-6">
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Contact Us
-                </a>
+                {contact && (
+                  <Link
+                    href={contact.href}
+                    key={contact.name}
+                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  >
+                    {contact.name}
+                  </Link>
+                )}{" "}
               </div>
             </div>
           </div>
