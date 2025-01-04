@@ -68,6 +68,16 @@ export type Geopoint = {
   alt?: number;
 };
 
+export type Footer = {
+  _id: string;
+  _type: "footer";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  socialAltText?: Array<string>;
+  socialLinks?: Array<string>;
+};
+
 export type About = {
   _id: string;
   _type: "about";
@@ -394,7 +404,7 @@ export type SanityImageMetadata = {
   isOpaque?: boolean;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | About | Service | Post | Author | Category | Slug | BlockContent | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Footer | About | Service | Post | Author | Category | Slug | BlockContent | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: aboutQuery
@@ -514,13 +524,21 @@ export type TopicsQueryResult = Array<{
   title: string | null;
   slug: Slug | null;
 }>;
+// Variable: footerQuery
+// Query: *[_type == "footer"]{ _id, socialLinks, socialAltText }
+export type FooterQueryResult = Array<{
+  _id: string;
+  socialLinks: Array<string> | null;
+  socialAltText: Array<string> | null;
+}>;
 
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     "*[_type == \"about\"]{ _id, name, jobTitle, bio, aboutImage }": AboutQueryResult;
-    "  *[_type == \"service\"]{ _id, title, slug, intro, body, icon, serviceImage, chartTitle, chartDescription, chartTrendPercentage, chartTimeline, chartData }\n": ServiceQueryResult;
+    "*[_type == \"service\"]{ _id, title, slug, intro, body, icon, serviceImage, chartTitle, chartDescription, chartTrendPercentage, chartTimeline, chartData }\n": ServiceQueryResult;
     "  *[_type == \"service\"]{ _id, title, slug }\n": TopicsQueryResult;
+    "*[_type == \"footer\"]{ _id, socialLinks, socialAltText }": FooterQueryResult;
   }
 }

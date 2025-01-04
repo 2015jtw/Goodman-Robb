@@ -1,3 +1,5 @@
+// React/Next
+
 // UI
 import HeroSection from "@/components/HeroSection";
 import ImageWithText from "@/components/ImageWithText";
@@ -6,14 +8,13 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Pricing from "@/components/Pricing";
 import ContactForm from "@/components/ContactForm";
+import MultipleBarChart from "@/components/BarGraph";
 
 // Sanity Data
 import { client } from "@/sanity/lib/client";
 import { serviceQuery, topicsQuery } from "@/sanity/lib/queries";
 import { ServiceQueryResult, TopicsQueryResult } from "../../sanity.types";
 import { urlFor } from "@/sanity/lib/image";
-import { PortableText } from "next-sanity";
-import MultipleBarChart from "@/components/BarGraph";
 
 const options = { next: { revalidate: 30 } };
 
@@ -23,7 +24,6 @@ export default async function Home() {
     {},
     options
   );
-  console.log("servicesData", servicesData);
 
   const topicsData: TopicsQueryResult = await client.fetch(
     topicsQuery,
@@ -34,9 +34,9 @@ export default async function Home() {
   return (
     <>
       <Navbar services={servicesData} />
-      <main className="container mx-auto ">
+      <main className="container mx-auto">
         <HeroSection />
-        <div className="flex flex-col gap-30 w-full container mx-auto px-4">
+        <div className="flex flex-col gap-30 w-full px-4">
           <h2 className="text-center text-5xl py-8">Our Services</h2>
           {servicesData.map((service, idx) => {
             const chartData =
@@ -54,9 +54,7 @@ export default async function Home() {
               <ImageWithText
                 key={service._id}
                 title={service.title || ""}
-                description={
-                  service.body ? <PortableText value={service.body} /> : ""
-                }
+                description={service.body || []}
                 serviceLink={service.slug?.current || ""}
                 defaultTopic={service.title || ""}
                 imageLink={
@@ -75,8 +73,10 @@ export default async function Home() {
                   ) : null
                 }
                 tallImage={
-                  service._id === "12f875dc-ab2c-44ca-b884-9f4b893d68fc"
+                  service.title === "Grant Program Management" ||
+                  service.title === "GHG Data Consulting"
                 } // Conditionally set tallImage
+                id={service.slug?.current || ""}
               />
             );
           })}

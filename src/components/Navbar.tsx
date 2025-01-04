@@ -91,7 +91,7 @@ export default function Navbar({ services }: { services: ServiceQueryResult }) {
                       <ListItem
                         key={service._id}
                         title={service.title ?? ""}
-                        href={service.slug?.current}
+                        href={`#${service.slug?.current}`}
                         className="hover:bg-blue-100"
                       >
                         {service.intro}
@@ -192,7 +192,7 @@ export default function Navbar({ services }: { services: ServiceQueryResult }) {
                       service.slug?.current ? (
                         <Link
                           key={service._id}
-                          href={service.slug.current}
+                          href={`#${service.slug.current}`}
                           className="block px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50"
                         >
                           {service.title}

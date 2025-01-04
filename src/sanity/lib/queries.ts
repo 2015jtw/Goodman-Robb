@@ -14,3 +14,8 @@ export const serviceQuery =
 export const topicsQuery =
   defineQuery(`  *[_type == "service"]{ _id, title, slug }
 `);
+
+// Footer data
+export const footerQuery = defineQuery(
+  `*[_type == "footer"]{ _id, socialLinks, socialAltText }`
+);
