@@ -43,7 +43,7 @@ export default async function Footer() {
       : [];
 
   return (
-    <footer className="bg-gray-800 text-white py-8">
+    <footer className="bg-gray-800 text-white py-10">
       <div className="container mx-auto px-4">
         <div className="flex flex-col items-center justify-center space-y-6">
           <div className="flex justify-center items-center space-x-4">
