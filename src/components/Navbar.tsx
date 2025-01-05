@@ -13,7 +13,6 @@ import {
   XMarkIcon,
   ChevronDownIcon,
 } from "@heroicons/react/24/outline";
-// import DesktopNav from "./ui/DesktopNav";
 import { Button } from "./ui/button";
 import {
   NavigationMenu,
@@ -25,6 +24,8 @@ import {
   navigationMenuTriggerStyle,
   ListItem,
 } from "@/components/ui/navigation-menu";
+
+// Sanity
 import { ServiceQueryResult } from "../../sanity.types";
 
 const navigation = [
@@ -38,7 +39,12 @@ const contact = navigation.find((item) => item.name === "Contact Us");
 
 export default function Navbar({ services }: { services: ServiceQueryResult }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [servicesOpen, setServicesOpen] = useState(false); // To handle dropdown toggle
+  const [servicesOpen, setServicesOpen] = useState(false);
+
+  const handleMobileClick = () => {
+    setMobileMenuOpen(false);
+    setMobileMenuOpen(!mobileMenuOpen);
+  };
 
   return (
     <header className="absolute inset-x-0 top-0 z-50">
@@ -87,16 +93,18 @@ export default function Navbar({ services }: { services: ServiceQueryResult }) {
                 </NavigationMenuTrigger>
                 <NavigationMenuContent className="left-1/2 transform -translate-x-1/2">
                   <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] z-50 bg-white">
-                    {services.map((service) => (
-                      <ListItem
-                        key={service._id}
-                        title={service.title ?? ""}
-                        href={`#${service.slug?.current}`}
-                        className="hover:bg-blue-100"
-                      >
-                        {service.intro}
-                      </ListItem>
-                    ))}
+                    {services.map((service) => {
+                      return (
+                        <ListItem
+                          key={service._id}
+                          title={service.title ?? ""}
+                          href={`#${service.slug?.current}`}
+                          className="hover:bg-blue-100"
+                        >
+                          {service.intro}
+                        </ListItem>
+                      );
+                    })}
                   </ul>
                 </NavigationMenuContent>
               </NavigationMenuItem>
@@ -143,7 +151,7 @@ export default function Navbar({ services }: { services: ServiceQueryResult }) {
         <div className="fixed inset-0 z-50" />
         <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
-            <Link href="/" className="-m-1.5 p-1.5">
+            <Link href="/" className="-m-1.5 p-1.5" onClick={handleMobileClick}>
               <span className="sr-only">Your Company</span>
               <Image
                 alt="Image of your company Logo"
@@ -170,6 +178,7 @@ export default function Navbar({ services }: { services: ServiceQueryResult }) {
                     key={home.name}
                     href={home.href}
                     className="block px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50"
+                    onClick={handleMobileClick}
                   >
                     {home.name}
                   </Link>
@@ -194,6 +203,7 @@ export default function Navbar({ services }: { services: ServiceQueryResult }) {
                           key={service._id}
                           href={`#${service.slug.current}`}
                           className="block px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50"
+                          onClick={handleMobileClick}
                         >
                           {service.title}
                         </Link>
@@ -206,6 +216,7 @@ export default function Navbar({ services }: { services: ServiceQueryResult }) {
                     key={idx}
                     href={item.href}
                     className="block px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50"
+                    onClick={handleMobileClick}
                   >
                     {item.name}
                   </Link>
@@ -217,6 +228,7 @@ export default function Navbar({ services }: { services: ServiceQueryResult }) {
                   <Link
                     href={contact.href}
                     key={contact.name}
+                    onClick={handleMobileClick}
                     className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   >
                     {contact.name}

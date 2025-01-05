@@ -1,5 +1,3 @@
-// React/Next
-
 // UI
 import HeroSection from "@/components/HeroSection";
 import ImageWithText from "@/components/ImageWithText";
