@@ -52,7 +52,7 @@ export default function MultipleBarChart({
   };
 
   return (
-    <Card className="h-[500px]">
+    <Card>
       <CardHeader>
         <CardTitle>{title}</CardTitle>
         <CardDescription>{description}</CardDescription>

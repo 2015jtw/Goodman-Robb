@@ -35,6 +35,8 @@ const ImageWithText = ({
   className,
   id,
   tallImage,
+  idx,
+  totalLength,
 }: {
   title: string;
   description: TypedObject | TypedObject[];
@@ -47,17 +49,23 @@ const ImageWithText = ({
   swap?: boolean;
   id?: string;
   tallImage?: boolean;
+  idx: number;
+  totalLength: number;
 }) => {
   return (
     <div
-      className={`w-full flex flex-col lg:flex-row items-center justify-between bg-white mt-8 ${
+      className={`w-full flex flex-col lg:flex-row items-center justify-between bg-white ${
         swap ? "lg:flex-row-reverse" : ""
-      } ${className}`}
+      } ${className} ${idx === totalLength - 1 ? "" : "mb-14"}`}
       id={id}
     >
       <div
         className={`w-full lg:w-1/2 p-4 ${
-          tallImage ? "h-[300px] lg:h-[550px]" : "h-[300px] lg:h-[450px]"
+          tallImage
+            ? chartComponent
+              ? "h-auto lg:h-[500px]"
+              : "h-[400px] lg:h-[500px]"
+            : "h-[400px] lg:h-[450px]"
         }`}
       >
         {chartComponent ? (

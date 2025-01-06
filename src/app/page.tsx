@@ -34,8 +34,8 @@ export default async function Home() {
       <Navbar services={servicesData} />
       <main className="container mx-auto">
         <HeroSection />
-        <div className="flex flex-col gap-30 w-full px-4">
-          <h2 className="text-center text-5xl py-8">Our Services</h2>
+        <div className="flex flex-col gap-30 w-full px-4 pb-32">
+          <h2 className="text-center text-5xl py-8 pb-12">Our Services</h2>
           {servicesData.map((service, idx) => {
             const chartData =
               service.chartData && Array.isArray(service.chartData)
@@ -75,6 +75,8 @@ export default async function Home() {
                   service.title === "GHG Data Consulting"
                 } // Conditionally set tallImage
                 id={service.slug?.current || ""}
+                idx={idx}
+                totalLength={servicesData.length}
               />
             );
           })}

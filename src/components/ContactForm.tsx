@@ -77,7 +77,7 @@ export default function ContactForm({ topics }: { topics: TopicsQueryResult }) {
   return (
     <Form {...form}>
       <div
-        className="bg-background container mx-auto px-4 my-12 mb-20"
+        className="bg-background container mx-auto px-4 pb-24"
         id="contact-form"
       >
         <form

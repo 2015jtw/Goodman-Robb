@@ -14,7 +14,7 @@ export default async function AboutUs() {
   const about: AboutQueryResult = await client.fetch(aboutQuery, {}, options);
 
   return (
-    <div className="bg-white py-24 sm:py-32" id="about-us">
+    <div className="bg-white pb-32" id="about-us">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* Text Section */}
         <div className="max-w-2xl mx-auto text-center xl:max-w-none">

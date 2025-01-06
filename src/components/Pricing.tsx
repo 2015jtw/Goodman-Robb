@@ -1,17 +1,14 @@
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { ArrowRight } from "lucide-react";
 
 export default function Pricing() {
   return (
-    <section className="w-full py-12 md:py-24 lg:py-32" id="pricing">
+    <section className="w-full pb-32" id="pricing">
       <div className="container px-4 md:px-6">
         <div className="flex flex-col items-center justify-center space-y-4 text-center">
           <div className="space-y-2">
@@ -60,18 +57,12 @@ export default function Pricing() {
                 </div>
               </div>
               <div className="flex flex-col gap-2 min-h-[60px] items-center justify-center rounded-lg border border-dashed p-8 text-center">
-                <p className="text-sm font-medium">
+                <p className="text-md font-medium">
                   We look forward to partnering with you to achieve your funding
                   and ESG objectives!
                 </p>
               </div>
             </CardContent>
-            <CardFooter className="flex flex-col items-center justify-center p-6 bg-gray-50 dark:bg-gray-900">
-              <Button className="w-full sm:w-auto" size="lg">
-                Contact Us for Custom Quote
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </CardFooter>
           </Card>
         </div>
       </div>
