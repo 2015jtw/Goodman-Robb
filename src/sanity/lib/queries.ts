@@ -1,5 +1,10 @@
 import { defineQuery } from "next-sanity";
 
+// Data for Hero section
+export const heroQuery = defineQuery(
+  `*[_type == "hero"]{ _id, title, subtitle, badgeContent, buttonText }`
+);
+
 // About Us section data
 export const aboutQuery = defineQuery(
   `*[_type == "about"]{ _id, name, jobTitle, bio, aboutImage }`
@@ -12,7 +17,7 @@ export const serviceQuery =
 
 // Contact Form Topics data
 export const topicsQuery =
-  defineQuery(`  *[_type == "service"]{ _id, title, slug }
+  defineQuery(`*[_type == "service"]{ _id, title, slug }
 `);
 
 // Footer data

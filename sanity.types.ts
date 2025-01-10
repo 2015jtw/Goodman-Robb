@@ -68,6 +68,18 @@ export type Geopoint = {
   alt?: number;
 };
 
+export type Hero = {
+  _id: string;
+  _type: "hero";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  badgeContent?: string;
+  subtitle?: string;
+  buttonText?: string;
+};
+
 export type Footer = {
   _id: string;
   _type: "footer";
@@ -169,7 +181,6 @@ export type Service = {
     _type: "image";
     _key: string;
   }>;
-  icon?: "fire-extinguisher" | "user" | "speech" | "flame" | "handshake" | "chart-line";
   chartTitle?: string;
   chartDescription?: string;
   chartTrendPercentage?: string;
@@ -404,9 +415,18 @@ export type SanityImageMetadata = {
   isOpaque?: boolean;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Footer | About | Service | Post | Author | Category | Slug | BlockContent | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Hero | Footer | About | Service | Post | Author | Category | Slug | BlockContent | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
+// Variable: heroQuery
+// Query: *[_type == "hero"]{ _id, title, subtitle, badgeContent, buttonText }
+export type HeroQueryResult = Array<{
+  _id: string;
+  title: string | null;
+  subtitle: string | null;
+  badgeContent: string | null;
+  buttonText: string | null;
+}>;
 // Variable: aboutQuery
 // Query: *[_type == "about"]{ _id, name, jobTitle, bio, aboutImage }
 export type AboutQueryResult = Array<{
@@ -493,7 +513,7 @@ export type ServiceQueryResult = Array<{
     _type: "image";
     _key: string;
   }> | null;
-  icon: "chart-line" | "fire-extinguisher" | "flame" | "handshake" | "speech" | "user" | null;
+  icon: null;
   serviceImage: {
     asset?: {
       _ref: string;
@@ -536,9 +556,10 @@ export type FooterQueryResult = Array<{
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
+    "*[_type == \"hero\"]{ _id, title, subtitle, badgeContent, buttonText }": HeroQueryResult;
     "*[_type == \"about\"]{ _id, name, jobTitle, bio, aboutImage }": AboutQueryResult;
     "*[_type == \"service\"]{ _id, title, slug, intro, body, icon, serviceImage, chartTitle, chartDescription, chartTrendPercentage, chartTimeline, chartData }\n": ServiceQueryResult;
-    "  *[_type == \"service\"]{ _id, title, slug }\n": TopicsQueryResult;
+    "*[_type == \"service\"]{ _id, title, slug }\n": TopicsQueryResult;
     "*[_type == \"footer\"]{ _id, socialLinks, socialAltText }": FooterQueryResult;
   }
 }
