@@ -32,6 +32,7 @@ const navigation = [
   { name: "Home", href: "/" },
   { name: "About Us", href: "#about-us" },
   { name: "Pricing", href: "#pricing" },
+  { name: "Blog", href: "/blog" },
   { name: "Contact Us", href: "#contact-form" },
 ];
 const home = navigation.find((item) => item.name === "Home");
@@ -124,6 +125,15 @@ export default function Navbar({ services }: { services: ServiceQueryResult }) {
                     className={`${navigationMenuTriggerStyle()} !text-base text-foreground font-medium`}
                   >
                     Pricing
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <Link href="/blog" legacyBehavior passHref>
+                  <NavigationMenuLink
+                    className={`${navigationMenuTriggerStyle()} !text-base text-foreground font-medium`}
+                  >
+                    Blog
                   </NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>
