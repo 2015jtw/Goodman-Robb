@@ -96,6 +96,7 @@ export type Hero = {
   _rev: string;
   title?: string;
   badgeContent?: string;
+  badgeContentURL?: string;
   subtitle?: string;
   buttonText?: string;
 };
@@ -481,12 +482,13 @@ export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: heroQuery
-// Query: *[_type == "hero"]{ _id, title, subtitle, badgeContent, buttonText }
+// Query: *[_type == "hero"]{ _id, title, subtitle, badgeContent, badgeContentURL, buttonText }
 export type HeroQueryResult = Array<{
   _id: string;
   title: string | null;
   subtitle: string | null;
   badgeContent: string | null;
+  badgeContentURL: string | null;
   buttonText: string | null;
 }>;
 // Variable: aboutQuery
@@ -653,7 +655,7 @@ export type LogoQueryResult = {
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "*[_type == \"hero\"]{ _id, title, subtitle, badgeContent, buttonText }": HeroQueryResult;
+    "*[_type == \"hero\"]{ _id, title, subtitle, badgeContent, badgeContentURL, buttonText }": HeroQueryResult;
     "*[_type == \"about\"]{ _id, name, jobTitle, bio, aboutImage }": AboutQueryResult;
     "*[_type == \"service\"]{ _id, title, slug, intro, body, icon, serviceImage, chartTitle, chartDescription, chartTrendPercentage, chartTimeline, chartData }\n": ServiceQueryResult;
     "\n  *[_type == \"service\"]{_id, title, slug, intro}": NavbarServicesQueryResult;

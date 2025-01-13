@@ -2,7 +2,7 @@ import { defineQuery } from "next-sanity";
 
 // Data for Hero section
 export const heroQuery = defineQuery(
-  `*[_type == "hero"]{ _id, title, subtitle, badgeContent, buttonText }`
+  `*[_type == "hero"]{ _id, title, subtitle, badgeContent, badgeContentURL, buttonText }`
 );
 
 // About Us section data

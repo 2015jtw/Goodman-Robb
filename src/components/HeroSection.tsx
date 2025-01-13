@@ -12,6 +12,7 @@ const options = { next: { revalidate: 30 } };
 export default async function HeroSection() {
   const data: HeroQueryResult = await client.fetch(heroQuery, {}, options);
   const heroData = data[0];
+  console.log("heroData", heroData);
 
   return (
     <div className="bg-white min-h-screen flex items-center justify-center">
@@ -33,7 +34,7 @@ export default async function HeroSection() {
             <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
               {heroData.badgeContent}{" "}
               <Link
-                href="/industry-watch"
+                href={heroData.badgeContentURL || "/services/industry-watch"}
                 className="font-semibold text-indigo-600"
               >
                 <span aria-hidden="true" className="absolute inset-0" />
