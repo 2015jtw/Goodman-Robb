@@ -68,6 +68,26 @@ export type Geopoint = {
   alt?: number;
 };
 
+export type Logo = {
+  _id: string;
+  _type: "logo";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  Logo?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+};
+
 export type Hero = {
   _id: string;
   _type: "hero";
@@ -151,7 +171,61 @@ export type Service = {
   title?: string;
   slug?: Slug;
   intro?: string;
-  body?: Array<{
+  homepageImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  homepageContent?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
+    listItem?: "bullet";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  }>;
+  servicePageHeroImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  servicePageMaincontent?: Array<{
     children?: Array<{
       marks?: Array<string>;
       text?: string;
@@ -191,18 +265,6 @@ export type Service = {
     ghgEmissionsWithDataConsulting?: number;
     _key: string;
   }>;
-  serviceImage?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt?: string;
-    _type: "image";
-  };
 };
 
 export type Post = {
@@ -415,7 +477,7 @@ export type SanityImageMetadata = {
   isOpaque?: boolean;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Hero | Footer | About | Service | Post | Author | Category | Slug | BlockContent | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Logo | Hero | Footer | About | Service | Post | Author | Category | Slug | BlockContent | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: heroQuery
@@ -483,7 +545,48 @@ export type ServiceQueryResult = Array<{
   title: string | null;
   slug: Slug | null;
   intro: string | null;
-  body: Array<{
+  body: null;
+  icon: null;
+  serviceImage: null;
+  chartTitle: string | null;
+  chartDescription: string | null;
+  chartTrendPercentage: string | null;
+  chartTimeline: string | null;
+  chartData: Array<{
+    month?: string;
+    ghgEmissionsWithoutDataConsulting?: number;
+    ghgEmissionsWithDataConsulting?: number;
+    _key: string;
+  }> | null;
+}>;
+// Variable: navbarServicesQuery
+// Query: *[_type == "service"]{_id, title, slug, intro}
+export type NavbarServicesQueryResult = Array<{
+  _id: string;
+  title: string | null;
+  slug: Slug | null;
+  intro: string | null;
+}>;
+// Variable: servicePageQuery
+// Query: *[_type == "service" && slug.current == $slug][0]{_id, intro, slug, title, servicePageHeroImage, servicePageMaincontent}
+export type ServicePageQueryResult = {
+  _id: string;
+  intro: string | null;
+  slug: Slug | null;
+  title: string | null;
+  servicePageHeroImage: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  } | null;
+  servicePageMaincontent: Array<{
     children?: Array<{
       marks?: Array<string>;
       text?: string;
@@ -513,30 +616,7 @@ export type ServiceQueryResult = Array<{
     _type: "image";
     _key: string;
   }> | null;
-  icon: null;
-  serviceImage: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt?: string;
-    _type: "image";
-  } | null;
-  chartTitle: string | null;
-  chartDescription: string | null;
-  chartTrendPercentage: string | null;
-  chartTimeline: string | null;
-  chartData: Array<{
-    month?: string;
-    ghgEmissionsWithoutDataConsulting?: number;
-    ghgEmissionsWithDataConsulting?: number;
-    _key: string;
-  }> | null;
-}>;
+} | null;
 // Variable: topicsQuery
 // Query: *[_type == "service"]{ _id, title, slug }
 export type TopicsQueryResult = Array<{
@@ -551,6 +631,23 @@ export type FooterQueryResult = Array<{
   socialLinks: Array<string> | null;
   socialAltText: Array<string> | null;
 }>;
+// Variable: logoQuery
+// Query: *[_type == "logo"][0]{_id, Logo}
+export type LogoQueryResult = {
+  _id: string;
+  Logo: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  } | null;
+} | null;
 
 // Query TypeMap
 import "@sanity/client";
@@ -559,7 +656,10 @@ declare module "@sanity/client" {
     "*[_type == \"hero\"]{ _id, title, subtitle, badgeContent, buttonText }": HeroQueryResult;
     "*[_type == \"about\"]{ _id, name, jobTitle, bio, aboutImage }": AboutQueryResult;
     "*[_type == \"service\"]{ _id, title, slug, intro, body, icon, serviceImage, chartTitle, chartDescription, chartTrendPercentage, chartTimeline, chartData }\n": ServiceQueryResult;
+    "\n  *[_type == \"service\"]{_id, title, slug, intro}": NavbarServicesQueryResult;
+    "*[_type == \"service\" && slug.current == $slug][0]{_id, intro, slug, title, servicePageHeroImage, servicePageMaincontent}": ServicePageQueryResult;
     "*[_type == \"service\"]{ _id, title, slug }\n": TopicsQueryResult;
     "*[_type == \"footer\"]{ _id, socialLinks, socialAltText }": FooterQueryResult;
+    "*[_type == \"logo\"][0]{_id, Logo}": LogoQueryResult;
   }
 }

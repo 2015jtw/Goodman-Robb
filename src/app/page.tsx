@@ -10,8 +10,18 @@ import MultipleBarChart from "@/components/BarGraph";
 
 // Sanity Data
 import { client } from "@/sanity/lib/client";
-import { serviceQuery, topicsQuery } from "@/sanity/lib/queries";
-import { ServiceQueryResult, TopicsQueryResult } from "../../sanity.types";
+import {
+  serviceQuery,
+  topicsQuery,
+  logoQuery,
+  navbarServicesQuery,
+} from "@/sanity/lib/queries";
+import {
+  ServiceQueryResult,
+  TopicsQueryResult,
+  LogoQueryResult,
+  NavbarServicesQueryResult,
+} from "../../sanity.types";
 import { urlFor } from "@/sanity/lib/image";
 
 const options = { next: { revalidate: 30 } };
@@ -23,15 +33,24 @@ export default async function Home() {
     options
   );
 
+  const servicesNav: NavbarServicesQueryResult = await client.fetch(
+    navbarServicesQuery,
+    {},
+    options
+  );
+
   const topicsData: TopicsQueryResult = await client.fetch(
     topicsQuery,
     {},
     options
   );
 
+  const logoData: LogoQueryResult = await client.fetch(logoQuery, {}, options);
+  const logo = logoData?.Logo ? urlFor(logoData.Logo).url() : "";
+
   return (
     <>
-      <Navbar services={servicesData} />
+      <Navbar services={servicesNav} logo={logo} />
       <main className="container mx-auto">
         <HeroSection />
         <div className="flex flex-col gap-30 w-full px-4 pb-32">

@@ -10,10 +10,19 @@ export const aboutQuery = defineQuery(
   `*[_type == "about"]{ _id, name, jobTitle, bio, aboutImage }`
 );
 
-// Service section data
+// DATA FOR HOMEPAGE Service sections
 export const serviceQuery =
   defineQuery(`*[_type == "service"]{ _id, title, slug, intro, body, icon, serviceImage, chartTitle, chartDescription, chartTrendPercentage, chartTimeline, chartData }
 `);
+
+// DATA FOR NAVBAR SERVICES
+export const navbarServicesQuery = defineQuery(`
+  *[_type == "service"]{_id, title, slug, intro}`);
+
+// DATA FOR INDIVIDUAL SERVICES PAGES
+export const servicePageQuery = defineQuery(
+  `*[_type == "service" && slug.current == $slug][0]{_id, intro, slug, title, servicePageHeroImage, servicePageMaincontent}`
+);
 
 // Contact Form Topics data
 export const topicsQuery =
@@ -24,3 +33,6 @@ export const topicsQuery =
 export const footerQuery = defineQuery(
   `*[_type == "footer"]{ _id, socialLinks, socialAltText }`
 );
+
+// DATA FOR LOGO IN NAVBAR
+export const logoQuery = defineQuery(`*[_type == "logo"][0]{_id, Logo}`);

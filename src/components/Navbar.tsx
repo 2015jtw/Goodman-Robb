@@ -26,7 +26,7 @@ import {
 } from "@/components/ui/navigation-menu";
 
 // Sanity
-import { ServiceQueryResult } from "../../sanity.types";
+import { NavbarServicesQueryResult } from "../../sanity.types";
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -38,7 +38,13 @@ const navigation = [
 const home = navigation.find((item) => item.name === "Home");
 const contact = navigation.find((item) => item.name === "Contact Us");
 
-export default function Navbar({ services }: { services: ServiceQueryResult }) {
+export default function Navbar({
+  services,
+  logo,
+}: {
+  services: NavbarServicesQueryResult;
+  logo: string;
+}) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
 
@@ -55,14 +61,13 @@ export default function Navbar({ services }: { services: ServiceQueryResult }) {
         className="flex items-center justify-between p-6 lg:px-8"
       >
         <div className="flex lg:flex-1">
-          <Link href="#" className="-m-1.5 p-1.5">
+          <Link href="/" className="-m-1.5 p-1.5">
             <span className="sr-only">Your Company</span>
             <Image
               alt="Image of your company Logo"
-              src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
-              className="h-8 w-auto"
-              width={32}
-              height={32}
+              src={logo}
+              width={40}
+              height={40}
             />
           </Link>
         </div>
@@ -99,7 +104,7 @@ export default function Navbar({ services }: { services: ServiceQueryResult }) {
                         <ListItem
                           key={service._id}
                           title={service.title ?? ""}
-                          href={`#${service.slug?.current}`}
+                          href={`/services/${service.slug?.current}`}
                           className="hover:bg-blue-100"
                         >
                           {service.intro}
@@ -165,10 +170,9 @@ export default function Navbar({ services }: { services: ServiceQueryResult }) {
               <span className="sr-only">Your Company</span>
               <Image
                 alt="Image of your company Logo"
-                src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
-                className="h-8 w-auto"
-                width={32}
-                height={32}
+                src={logo}
+                width={40}
+                height={40}
               />
             </Link>
             <button
