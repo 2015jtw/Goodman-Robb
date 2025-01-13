@@ -12,7 +12,7 @@ export const aboutQuery = defineQuery(
 
 // DATA FOR HOMEPAGE Service sections
 export const serviceQuery =
-  defineQuery(`*[_type == "service"]{ _id, title, slug, intro, body, icon, serviceImage, chartTitle, chartDescription, chartTrendPercentage, chartTimeline, chartData }
+  defineQuery(`*[_type == "service"]{ _id, title, slug, homepageImage, homepageContent, chartTitle, chartDescription, chartTrendPercentage, chartTimeline, chartData }
 `);
 
 // DATA FOR NAVBAR SERVICES
@@ -36,3 +36,18 @@ export const footerQuery = defineQuery(
 
 // DATA FOR LOGO IN NAVBAR
 export const logoQuery = defineQuery(`*[_type == "logo"][0]{_id, Logo}`);
+
+// DATA FOR BLOG INDEX PAAGE
+export const BLOG_INDEX_QUERY =
+  defineQuery(`*[_type == "post"]{ _id, title, mainImage, publishedAt, intro, slug, categories[] -> {title}, author -> {name} }
+`);
+
+// DATA FOR RECENT BLOGS
+export const RECENT_BLOGS_QUERY =
+  defineQuery(`*[_type == "post"] | order(publishedAt desc) [0...$limit]{ _id, title, mainImage, publishedAt, intro, slug, categories[] -> {title, _id}, author -> {name} }
+`);
+
+// DATA FOR SINGLE BLOG POST
+export const SINGLE_BLOG_POST_QUERY =
+  defineQuery(`*[_type == "post" && slug.current == $slug][0]{_id, title, mainImage, publishedAt, intro, readTime, main_content, slug, categories[] -> {title}, author -> {name, role, image} }
+`);

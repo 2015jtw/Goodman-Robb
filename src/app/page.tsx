@@ -71,11 +71,13 @@ export default async function Home() {
               <ImageWithText
                 key={service._id}
                 title={service.title || ""}
-                description={service.body || []}
+                description={service.homepageContent || []}
                 serviceLink={service.slug?.current || ""}
                 defaultTopic={service.title || ""}
                 imageLink={
-                  service.serviceImage ? urlFor(service.serviceImage).url() : ""
+                  service.homepageImage
+                    ? urlFor(service.homepageImage).url()
+                    : ""
                 }
                 swap={idx % 2 === 0}
                 chartComponent={

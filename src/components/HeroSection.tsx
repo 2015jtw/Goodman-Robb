@@ -12,7 +12,6 @@ const options = { next: { revalidate: 30 } };
 export default async function HeroSection() {
   const data: HeroQueryResult = await client.fetch(heroQuery, {}, options);
   const heroData = data[0];
-  console.log("heroData", heroData);
 
   return (
     <div className="bg-white min-h-screen flex items-center justify-center">

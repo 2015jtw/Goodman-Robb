@@ -144,7 +144,7 @@ const ImageWithText = ({
             </DialogContent>
           </Dialog>
           <Link
-            href={serviceLink}
+            href={`/services/${serviceLink}`}
             className={`${buttonVariants({ variant: "secondary" })}`}
           >
             Learn More

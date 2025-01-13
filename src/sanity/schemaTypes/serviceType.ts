@@ -61,7 +61,7 @@ export const serviceType = {
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "servicePageMaincontent",
+      name: "servicePageContent",
       type: "blockContent",
       validation: (Rule) => Rule.required(),
       description: "Main content for the service page",

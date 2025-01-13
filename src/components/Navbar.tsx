@@ -5,6 +5,9 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
+// utils
+import { cn } from "@/lib/utils";
+
 // UI
 import { SiMinutemailer } from "react-icons/si";
 import { Dialog, DialogPanel } from "@headlessui/react";
@@ -33,7 +36,7 @@ const navigation = [
   { name: "About Us", href: "#about-us" },
   { name: "Pricing", href: "#pricing" },
   { name: "Blog", href: "/blog" },
-  { name: "Contact Us", href: "#contact-form" },
+  { name: "Contact Us", href: "/#contact-form" },
 ];
 const home = navigation.find((item) => item.name === "Home");
 const contact = navigation.find((item) => item.name === "Contact Us");
@@ -41,9 +44,15 @@ const contact = navigation.find((item) => item.name === "Contact Us");
 export default function Navbar({
   services,
   logo,
+  className,
+  secondClass,
+  thirdClass,
 }: {
   services: NavbarServicesQueryResult;
   logo: string;
+  className?: string;
+  secondClass?: string;
+  thirdClass?: string;
 }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
@@ -54,11 +63,14 @@ export default function Navbar({
   };
 
   return (
-    <header className="absolute inset-x-0 top-0 z-50">
+    <header className={cn("absolute inset-x-0 top-0 z-50", className)}>
       {/* desktop menu */}
       <nav
         aria-label="Global"
-        className="flex items-center justify-between p-6 lg:px-8"
+        className={cn(
+          "flex items-center justify-between p-4 px-12 lg:px-8",
+          secondClass
+        )}
       >
         <div className="flex lg:flex-1">
           <Link href="/" className="-m-1.5 p-1.5">
@@ -82,7 +94,9 @@ export default function Navbar({
           </button>
         </div>
         <div className="hidden lg:flex lg:gap-x-12">
-          <NavigationMenu className="bg-background p-2 rounded-md shadow-md">
+          <NavigationMenu
+            className={cn("bg-background p-2 rounded-md shadow-md", thirdClass)}
+          >
             <NavigationMenuList className="space-x-8">
               <NavigationMenuItem>
                 <Link href="/" legacyBehavior passHref>
@@ -146,7 +160,7 @@ export default function Navbar({
           </NavigationMenu>
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <Link href="#contact-form" className="group">
+          <Link href="/#contact-form" className="group">
             <Button>
               Contact Us
               <span className="transform transition-transform duration-300 group-hover:translate-x-1">
@@ -215,7 +229,7 @@ export default function Navbar({
                       service.slug?.current ? (
                         <Link
                           key={service._id}
-                          href={`#${service.slug.current}`}
+                          href={`/services/${service.slug.current}`}
                           className="block px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50"
                           onClick={handleMobileClick}
                         >
