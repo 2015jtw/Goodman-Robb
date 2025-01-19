@@ -639,7 +639,7 @@ export type NavbarServicesQueryResult = Array<{
   intro: string | null;
 }>;
 // Variable: servicePageQuery
-// Query: *[_type == "service" && slug.current == $slug][0]{_id, intro, slug, title, servicePageHeroImage, servicePageMaincontent}
+// Query: *[_type == "service" && slug.current == $slug][0]{_id, intro, slug, title, servicePageHeroImage, servicePageContent}
 export type ServicePageQueryResult = {
   _id: string;
   intro: string | null;
@@ -657,7 +657,36 @@ export type ServicePageQueryResult = {
     alt?: string;
     _type: "image";
   } | null;
-  servicePageMaincontent: null;
+  servicePageContent: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
+    listItem?: "bullet";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  }> | null;
 } | null;
 // Variable: topicsQuery
 // Query: *[_type == "service"]{ _id, title, slug }
@@ -911,7 +940,7 @@ declare module "@sanity/client" {
     "*[_type == \"about\"]{ _id, name, jobTitle, bio, aboutImage }": AboutQueryResult;
     "*[_type == \"service\"]{ _id, title, slug, homepageImage, homepageContent, chartTitle, chartDescription, chartTrendPercentage, chartTimeline, chartData }\n": ServiceQueryResult;
     "\n  *[_type == \"service\"]{_id, title, slug, intro}": NavbarServicesQueryResult;
-    "*[_type == \"service\" && slug.current == $slug][0]{_id, intro, slug, title, servicePageHeroImage, servicePageMaincontent}": ServicePageQueryResult;
+    "*[_type == \"service\" && slug.current == $slug][0]{_id, intro, slug, title, servicePageHeroImage, servicePageContent}": ServicePageQueryResult;
     "*[_type == \"service\"]{ _id, title, slug }\n": TopicsQueryResult;
     "*[_type == \"footer\"]{ _id, socialLinks, socialAltText }": FooterQueryResult;
     "*[_type == \"logo\"][0]{_id, Logo}": LogoQueryResult;

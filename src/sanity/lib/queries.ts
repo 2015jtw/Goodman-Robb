@@ -21,7 +21,7 @@ export const navbarServicesQuery = defineQuery(`
 
 // DATA FOR INDIVIDUAL SERVICES PAGES
 export const servicePageQuery = defineQuery(
-  `*[_type == "service" && slug.current == $slug][0]{_id, intro, slug, title, servicePageHeroImage, servicePageMaincontent}`
+  `*[_type == "service" && slug.current == $slug][0]{_id, intro, slug, title, servicePageHeroImage, servicePageContent}`
 );
 
 // Contact Form Topics data

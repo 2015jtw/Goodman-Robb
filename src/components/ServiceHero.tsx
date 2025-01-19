@@ -2,10 +2,6 @@
 import Image from "next/image";
 import Fragment from "react";
 
-// UI
-// import { Button } from "@/components/ui/button";
-// import Link from "next/link";
-
 // Sanity
 import { ServicePageQueryResult } from "../../sanity.types";
 import { urlFor } from "@/sanity/lib/image";
@@ -57,10 +53,12 @@ const ServiceHero = ({ service }: { service: ServicePageQueryResult }) => {
             <div className="mb-10">
               <h2 className="text-3xl font-medium pb-4">Our Approach</h2>
               <PortableText
-                value={service?.servicePageMaincontent || []}
+                value={service?.servicePageContent || []}
                 components={{
                   block: {
-                    normal: ({ children }) => <p>{children}</p>,
+                    normal: ({ children }) => (
+                      <p className="pb-2">{children}</p>
+                    ),
                     h3: ({ children }) => (
                       <h3 className="text-xl font-semibold mt-6 mb-2">
                         {children}
