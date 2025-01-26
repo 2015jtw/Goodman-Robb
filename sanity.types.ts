@@ -68,6 +68,16 @@ export type Geopoint = {
   alt?: number;
 };
 
+export type BlogIndex = {
+  _id: string;
+  _type: "blogIndex";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  subtitle?: string;
+};
+
 export type Pricing = {
   _id: string;
   _type: "pricing";
@@ -624,7 +634,7 @@ export type SanityImageMetadata = {
   isOpaque?: boolean;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Pricing | Logo | Hero | Footer | About | Service | Post | Author | Category | Slug | BlockContent | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | BlogIndex | Pricing | Logo | Hero | Footer | About | Service | Post | Author | Category | Slug | BlockContent | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: heroQuery
@@ -906,6 +916,13 @@ export type LogoQueryResult = {
     _type: "image";
   } | null;
 } | null;
+// Variable: blogIndexContentQuery
+// Query: *[_type == "blogIndex"][0]{_id, title, subtitle}
+export type BlogIndexContentQueryResult = {
+  _id: string;
+  title: string | null;
+  subtitle: string | null;
+} | null;
 // Variable: BLOG_INDEX_QUERY
 // Query: *[_type == "post"]{ _id, title, mainImage, publishedAt, intro, slug, categories[] -> {title}, author -> {name} }
 export type BLOG_INDEX_QUERYResult = Array<{
@@ -1171,6 +1188,7 @@ declare module "@sanity/client" {
     "*[_type == \"service\"]{ _id, title, slug }\n": TopicsQueryResult;
     "*[_type == \"footer\"]{ _id, socialLinks, socialAltText }": FooterQueryResult;
     "*[_type == \"logo\"][0]{_id, Logo}": LogoQueryResult;
+    "*[_type == \"blogIndex\"][0]{_id, title, subtitle}": BlogIndexContentQueryResult;
     "*[_type == \"post\"]{ _id, title, mainImage, publishedAt, intro, slug, categories[] -> {title}, author -> {name} }\n": BLOG_INDEX_QUERYResult;
     "*[_type == \"post\"] | order(publishedAt desc) [0...$limit]{ _id, title, mainImage, publishedAt, intro, slug, categories[] -> {title, _id}, author -> {name} }\n": RECENT_BLOGS_QUERYResult;
     "*[_type == \"post\" && slug.current == $slug][0]{_id, title, mainImage, publishedAt, intro, readTime, main_content, slug, categories[] -> {title}, author -> {name, role, image} }\n": SINGLE_BLOG_POST_QUERYResult;

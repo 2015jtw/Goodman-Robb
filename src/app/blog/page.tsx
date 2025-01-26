@@ -13,8 +13,11 @@ import { Badge } from "@/components/ui/badge";
 
 // sanity
 import { client } from "../../sanity/lib/client";
-import { BLOG_INDEX_QUERY } from "@/sanity/lib/queries";
-import { BLOG_INDEX_QUERYResult } from "../../../sanity.types";
+import { BLOG_INDEX_QUERY, blogIndexContentQuery } from "@/sanity/lib/queries";
+import {
+  BLOG_INDEX_QUERYResult,
+  BlogIndexContentQueryResult,
+} from "../../../sanity.types";
 import { PortableText } from "next-sanity";
 import { urlFor } from "@/sanity/lib/image";
 
@@ -27,6 +30,12 @@ export default async function BlogIndex() {
     options
   );
 
+  const blogContent: BlogIndexContentQueryResult = await client.fetch(
+    blogIndexContentQuery,
+    {},
+    options
+  );
+
   return (
     <>
       <div className="bg-white bg-dot-black/[0.2] relative">
@@ -34,11 +43,8 @@ export default async function BlogIndex() {
         <div className="absolute pointer-events-none inset-0 bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_100%,black)]"></div>
         <div className="container mx-auto px-4 py-12 pt-24 my-2 min-h-screen">
           <div className="flex flex-col items-center mb-12 text-center">
-            <h1 className="text-4xl font-bold mb-4">Blog</h1>
-            <p className="text-gray-600 max-w-2xl">
-              Explore our latest thoughts, ideas, and insights about web
-              development, design, and technology.
-            </p>
+            <h1 className="text-4xl font-bold mb-4">{blogContent?.title}</h1>
+            <p className="text-gray-600 max-w-2xl">{blogContent?.subtitle}</p>
           </div>
 
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 ">

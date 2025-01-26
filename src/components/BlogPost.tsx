@@ -111,7 +111,7 @@ const BlogPost = ({
             {/* INTRO */}
             {post?.intro && (
               <div className="mb-6">
-                <h2 className="font-semibold text-xl mb-2">Summary</h2>
+                <h2 className="font-semibold text-xl mb-2">Intro</h2>
                 <PortableText
                   value={post?.intro || []}
                   components={{

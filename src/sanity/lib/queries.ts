@@ -37,6 +37,11 @@ export const footerQuery = defineQuery(
 // DATA FOR LOGO IN NAVBAR
 export const logoQuery = defineQuery(`*[_type == "logo"][0]{_id, Logo}`);
 
+// DATA FOR BLOG INDEX PAGE CONTENT
+export const blogIndexContentQuery = defineQuery(
+  `*[_type == "blogIndex"][0]{_id, title, subtitle}`
+);
+
 // DATA FOR BLOG INDEX PAAGE
 export const BLOG_INDEX_QUERY =
   defineQuery(`*[_type == "post"]{ _id, title, mainImage, publishedAt, intro, slug, categories[] -> {title}, author -> {name} }
