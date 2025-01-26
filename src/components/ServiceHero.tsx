@@ -2,12 +2,30 @@
 import Image from "next/image";
 import Fragment from "react";
 
+// UI
+import ContactForm from "./ContactForm";
+
 // Sanity
 import { ServicePageQueryResult } from "../../sanity.types";
 import { urlFor } from "@/sanity/lib/image";
 import { PortableText } from "next-sanity";
+import { client } from "@/sanity/lib/client";
+import { topicsQuery } from "@/sanity/lib/queries";
+import { TopicsQueryResult } from "../../sanity.types";
 
-const ServiceHero = ({ service }: { service: ServicePageQueryResult }) => {
+const options = { next: { revalidate: 30 } };
+
+const ServiceHero = async ({
+  service,
+}: {
+  service: ServicePageQueryResult;
+}) => {
+  const topicsData: TopicsQueryResult = await client.fetch(
+    topicsQuery,
+    {},
+    options
+  );
+
   return (
     <>
       {/* Image Section */}
@@ -44,14 +62,19 @@ const ServiceHero = ({ service }: { service: ServicePageQueryResult }) => {
           <div className="mx-auto max-w-3xl px-6 lg:px-0">
             {/* Intro section */}
             <div className="mb-10">
-              <p className="text-lg font-medium leading-8">
-                {service && service.intro}
-              </p>
+              <PortableText
+                value={service?.servicePageIntro || []}
+                components={{
+                  block: {
+                    normal: ({ children }) => (
+                      <p className="pb-2 italic">{children}</p>
+                    ),
+                  },
+                }}
+              />
             </div>
-
             {/* Approach Section */}
             <div className="mb-10">
-              <h2 className="text-3xl font-medium pb-4">Our Approach</h2>
               <PortableText
                 value={service?.servicePageContent || []}
                 components={{
@@ -84,6 +107,44 @@ const ServiceHero = ({ service }: { service: ServicePageQueryResult }) => {
                     ),
                   },
                 }}
+              />
+            </div>
+            {(service?.servicePageSpecialImages?.length ?? 0) > 0 && (
+              <div className="mb-10">
+                <div className="flex justify-between">
+                  {service?.servicePageSpecialImages?.map((image, index) => (
+                    <Image
+                      key={index}
+                      height={100}
+                      width={100}
+                      src={urlFor(image).url()}
+                      alt="Special Image"
+                    />
+                  ))}
+                </div>
+              </div>
+            )}{" "}
+            <div className="mb-10">
+              <PortableText
+                value={service?.servicePagePricing || []}
+                components={{
+                  block: {
+                    normal: ({ children }) => (
+                      <p className="pb-2">{children}</p>
+                    ),
+                    h3: ({ children }) => (
+                      <h3 className="text-xl font-semibold mt-6 mb-2">
+                        {children}
+                      </h3>
+                    ),
+                  },
+                }}
+              />
+            </div>
+            <div className="mb-10">
+              <ContactForm
+                topics={topicsData}
+                defaultTopic={service?.title || ""}
               />
             </div>
           </div>

@@ -9,6 +9,7 @@ import { aboutType } from "./aboutType";
 import { footerType } from "./footerType";
 import { heroType } from "./heroType";
 import { logoType } from "./logoType";
+import { pricingType } from "./pricingType";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -21,5 +22,6 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     footerType,
     heroType,
     logoType,
+    pricingType,
   ],
 };

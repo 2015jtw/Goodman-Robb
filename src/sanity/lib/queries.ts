@@ -17,11 +17,11 @@ export const serviceQuery =
 
 // DATA FOR NAVBAR SERVICES
 export const navbarServicesQuery = defineQuery(`
-  *[_type == "service"]{_id, title, slug, intro}`);
+  *[_type == "service"]{_id, title, slug, navbarSubtitle}`);
 
 // DATA FOR INDIVIDUAL SERVICES PAGES
 export const servicePageQuery = defineQuery(
-  `*[_type == "service" && slug.current == $slug][0]{_id, intro, slug, title, servicePageHeroImage, servicePageContent}`
+  `*[_type == "service" && slug.current == $slug][0]{_id, navbarSubtitle, slug, title, servicePageHeroImage, servicePageIntro, servicePageContent, servicePagePricing, servicePageSpecialImages}`
 );
 
 // Contact Form Topics data
@@ -51,3 +51,8 @@ export const RECENT_BLOGS_QUERY =
 export const SINGLE_BLOG_POST_QUERY =
   defineQuery(`*[_type == "post" && slug.current == $slug][0]{_id, title, mainImage, publishedAt, intro, readTime, main_content, slug, categories[] -> {title}, author -> {name, role, image} }
 `);
+
+// DATA FOR PRICING SECTION
+export const pricingQuery = defineQuery(
+  `*[_type == "pricing"][0]{_id, title, subtitle, cardTitle, cardSubtitle, cardContent, hook}`
+);

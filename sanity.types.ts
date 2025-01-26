@@ -68,6 +68,49 @@ export type Geopoint = {
   alt?: number;
 };
 
+export type Pricing = {
+  _id: string;
+  _type: "pricing";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  subtitle?: string;
+  cardTitle?: string;
+  cardSubtitle?: string;
+  cardContent?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
+    listItem?: "bullet";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  }>;
+  hook?: string;
+};
+
 export type Logo = {
   _id: string;
   _type: "logo";
@@ -171,7 +214,7 @@ export type Service = {
   _rev: string;
   title?: string;
   slug?: Slug;
-  intro?: string;
+  navbarSubtitle?: string;
   homepageImage?: {
     asset?: {
       _ref: string;
@@ -226,6 +269,36 @@ export type Service = {
     alt?: string;
     _type: "image";
   };
+  servicePageIntro?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
+    listItem?: "bullet";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  }>;
   servicePageContent?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -253,6 +326,48 @@ export type Service = {
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
     alt?: string;
+    _type: "image";
+    _key: string;
+  }>;
+  servicePagePricing?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
+    listItem?: "bullet";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  }>;
+  servicePageSpecialImages?: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
     _type: "image";
     _key: string;
   }>;
@@ -509,7 +624,7 @@ export type SanityImageMetadata = {
   isOpaque?: boolean;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Logo | Hero | Footer | About | Service | Post | Author | Category | Slug | BlockContent | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Pricing | Logo | Hero | Footer | About | Service | Post | Author | Category | Slug | BlockContent | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: heroQuery
@@ -631,18 +746,18 @@ export type ServiceQueryResult = Array<{
   }> | null;
 }>;
 // Variable: navbarServicesQuery
-// Query: *[_type == "service"]{_id, title, slug, intro}
+// Query: *[_type == "service"]{_id, title, slug, navbarSubtitle}
 export type NavbarServicesQueryResult = Array<{
   _id: string;
   title: string | null;
   slug: Slug | null;
-  intro: string | null;
+  navbarSubtitle: string | null;
 }>;
 // Variable: servicePageQuery
-// Query: *[_type == "service" && slug.current == $slug][0]{_id, intro, slug, title, servicePageHeroImage, servicePageContent}
+// Query: *[_type == "service" && slug.current == $slug][0]{_id, navbarSubtitle, slug, title, servicePageHeroImage, servicePageIntro, servicePageContent, servicePagePricing, servicePageSpecialImages}
 export type ServicePageQueryResult = {
   _id: string;
-  intro: string | null;
+  navbarSubtitle: string | null;
   slug: Slug | null;
   title: string | null;
   servicePageHeroImage: {
@@ -657,6 +772,36 @@ export type ServicePageQueryResult = {
     alt?: string;
     _type: "image";
   } | null;
+  servicePageIntro: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
+    listItem?: "bullet";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  }> | null;
   servicePageContent: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -684,6 +829,48 @@ export type ServicePageQueryResult = {
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
     alt?: string;
+    _type: "image";
+    _key: string;
+  }> | null;
+  servicePagePricing: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
+    listItem?: "bullet";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  }> | null;
+  servicePageSpecialImages: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
     _type: "image";
     _key: string;
   }> | null;
@@ -931,6 +1118,46 @@ export type SINGLE_BLOG_POST_QUERYResult = {
     } | null;
   } | null;
 } | null;
+// Variable: pricingQuery
+// Query: *[_type == "pricing"][0]{_id, title, subtitle, cardTitle, cardSubtitle, cardContent, hook}
+export type PricingQueryResult = {
+  _id: string;
+  title: string | null;
+  subtitle: string | null;
+  cardTitle: string | null;
+  cardSubtitle: string | null;
+  cardContent: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
+    listItem?: "bullet";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  }> | null;
+  hook: string | null;
+} | null;
 
 // Query TypeMap
 import "@sanity/client";
@@ -939,13 +1166,14 @@ declare module "@sanity/client" {
     "*[_type == \"hero\"]{ _id, title, subtitle, badgeContent, badgeContentURL, buttonText }": HeroQueryResult;
     "*[_type == \"about\"]{ _id, name, jobTitle, bio, aboutImage }": AboutQueryResult;
     "*[_type == \"service\"]{ _id, title, slug, homepageImage, homepageContent, chartTitle, chartDescription, chartTrendPercentage, chartTimeline, chartData }\n": ServiceQueryResult;
-    "\n  *[_type == \"service\"]{_id, title, slug, intro}": NavbarServicesQueryResult;
-    "*[_type == \"service\" && slug.current == $slug][0]{_id, intro, slug, title, servicePageHeroImage, servicePageContent}": ServicePageQueryResult;
+    "\n  *[_type == \"service\"]{_id, title, slug, navbarSubtitle}": NavbarServicesQueryResult;
+    "*[_type == \"service\" && slug.current == $slug][0]{_id, navbarSubtitle, slug, title, servicePageHeroImage, servicePageIntro, servicePageContent, servicePagePricing, servicePageSpecialImages}": ServicePageQueryResult;
     "*[_type == \"service\"]{ _id, title, slug }\n": TopicsQueryResult;
     "*[_type == \"footer\"]{ _id, socialLinks, socialAltText }": FooterQueryResult;
     "*[_type == \"logo\"][0]{_id, Logo}": LogoQueryResult;
     "*[_type == \"post\"]{ _id, title, mainImage, publishedAt, intro, slug, categories[] -> {title}, author -> {name} }\n": BLOG_INDEX_QUERYResult;
     "*[_type == \"post\"] | order(publishedAt desc) [0...$limit]{ _id, title, mainImage, publishedAt, intro, slug, categories[] -> {title, _id}, author -> {name} }\n": RECENT_BLOGS_QUERYResult;
     "*[_type == \"post\" && slug.current == $slug][0]{_id, title, mainImage, publishedAt, intro, readTime, main_content, slug, categories[] -> {title}, author -> {name, role, image} }\n": SINGLE_BLOG_POST_QUERYResult;
+    "*[_type == \"pricing\"][0]{_id, title, subtitle, cardTitle, cardSubtitle, cardContent, hook}": PricingQueryResult;
   }
 }

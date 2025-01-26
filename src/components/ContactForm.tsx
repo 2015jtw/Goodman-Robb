@@ -40,7 +40,13 @@ const formSchema = z.object({
   message: z.string().min(10).max(500),
 });
 
-export default function ContactForm({ topics }: { topics: TopicsQueryResult }) {
+export default function ContactForm({
+  topics,
+  defaultTopic = "",
+}: {
+  topics: TopicsQueryResult;
+  defaultTopic?: string;
+}) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState("");
 
@@ -48,7 +54,7 @@ export default function ContactForm({ topics }: { topics: TopicsQueryResult }) {
     resolver: zodResolver(formSchema),
     defaultValues: {
       fullname: "",
-      topic: "",
+      topic: defaultTopic,
       email: "",
       message: "",
     },

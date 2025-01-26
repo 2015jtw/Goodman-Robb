@@ -121,7 +121,7 @@ export default function Navbar({
                           href={`/services/${service.slug?.current}`}
                           className="hover:bg-blue-100"
                         >
-                          {service.intro}
+                          {service.navbarSubtitle}
                         </ListItem>
                       );
                     })}

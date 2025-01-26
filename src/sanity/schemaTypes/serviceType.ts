@@ -20,10 +20,9 @@ export const serviceType = {
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "intro",
+      name: "navbarSubtitle",
       type: "string",
-      description:
-        "Brief descriptor of service in Navbar & used on service page",
+      description: "Brief descriptor of service in Navbar",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -61,10 +60,28 @@ export const serviceType = {
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "servicePageIntro",
+      type: "blockContent",
+      description: "Intro content for the service page",
+    }),
+    defineField({
       name: "servicePageContent",
       type: "blockContent",
       validation: (Rule) => Rule.required(),
       description: "Main content for the service page",
+    }),
+    defineField({
+      name: "servicePagePricing",
+      type: "blockContent",
+      description:
+        "Content section on the service page used for pricing, conclusion, hook, etc.",
+    }),
+    defineField({
+      name: "servicePageSpecialImages",
+      type: "array",
+      of: [{ type: "image" }],
+      description:
+        "Special images for the service page i.e. logos for ESG Frameworks",
     }),
     defineField({
       name: "chartTitle",
