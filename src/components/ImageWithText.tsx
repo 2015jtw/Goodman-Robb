@@ -5,17 +5,7 @@ import Image from "next/image";
 import React from "react";
 
 // UI
-import { SiMinutemailer } from "react-icons/si";
 import Link from "next/link";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { ModalForm } from "./ModalForm";
 import { buttonVariants } from "@/components/ui/button";
 
 // Sanity
@@ -27,7 +17,6 @@ const ImageWithText = ({
   title,
   description,
   serviceLink,
-  defaultTopic,
   imageLink,
   imageAlt,
   chartComponent,
@@ -125,27 +114,9 @@ const ImageWithText = ({
           />
         </div>
         <div className="flex flex-col md:flex-row mt-4 gap-4">
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button className="group">
-                Get in Touch
-                <span className="transform transition-transform duration-300 group-hover:translate-x-1">
-                  <SiMinutemailer />
-                </span>
-              </Button>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle className="pb-4 px-4 text-center">
-                  Request {title} Service
-                </DialogTitle>
-              </DialogHeader>
-              <ModalForm defaultTopic={defaultTopic} />
-            </DialogContent>
-          </Dialog>
           <Link
             href={`/services/${serviceLink}`}
-            className={`${buttonVariants({ variant: "secondary" })}`}
+            className={`${buttonVariants({ variant: "default" })}`}
           >
             Learn More
           </Link>
