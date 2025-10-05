@@ -193,7 +193,7 @@ export default function Navbar({
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-center">
           <Link href="/#contact-form" className="group">
-            <Button className="text-[1.25rem]">
+            <Button className="text-[1.25rem]" size="nav">
               Get in Touch
               <span className="ml-2 inline-flex transform transition-transform duration-300 group-hover:translate-x-1">
                 <SiMinutemailer />

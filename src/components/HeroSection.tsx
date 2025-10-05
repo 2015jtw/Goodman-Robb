@@ -54,7 +54,7 @@ export default async function HeroSection() {
                 className={`${buttonVariants({
                   variant: "default",
                   size: "lg",
-                })} text-xl !px-4 group`}
+                })} text-xl !px-4 py-4 group`}
               >
                 {heroData.buttonText}
                 <span className="transform transition-transform duration-300 group-hover:translate-x-1">
